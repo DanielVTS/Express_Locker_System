@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lingnan.dao.LockerBoxInformationMapper">
+  <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBoxInformation">
+    <!--@mbg.generated-->
+    <!--@Table locker_box_information-->
+    <id column="locker_box_id" jdbcType="OTHER" property="lockerBoxId" />
+    <result column="locker_id" jdbcType="INTEGER" property="lockerId" />
+    <result column="locker_column" jdbcType="INTEGER" property="lockerColumn" />
+    <result column="locker_row" jdbcType="INTEGER" property="lockerRow" />
+    <result column="door_status" jdbcType="INTEGER" property="doorStatus" />
+    <result column="box_is_empty" jdbcType="INTEGER" property="boxIsEmpty" />
+    <result column="box_type" jdbcType="INTEGER" property="boxType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    locker_box_id, locker_id, locker_column, locker_row, door_status, box_is_empty, box_type, 
+    "status", create_time, update_time, status_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from locker_box_information
+    where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+    <!--@mbg.generated-->
+    delete from locker_box_information
+    where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
+  </delete>
+  <insert id="insert" parameterType="cn.lingnan.dto.LockerBoxInformation">
+    <!--@mbg.generated-->
+    insert into locker_box_information (locker_box_id, locker_id, locker_column, 
+      locker_row, door_status, box_is_empty, 
+      box_type, "status", create_time, 
+      update_time, status_time, remark
+      )
+    values (#{lockerBoxId,jdbcType=OTHER}, #{lockerId,jdbcType=INTEGER}, #{lockerColumn,jdbcType=INTEGER}, 
+      #{lockerRow,jdbcType=INTEGER}, #{doorStatus,jdbcType=INTEGER}, #{boxIsEmpty,jdbcType=INTEGER}, 
+      #{boxType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBoxInformation">
+    <!--@mbg.generated-->
+    insert into locker_box_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lockerBoxId != null">
+        locker_box_id,
+      </if>
+      <if test="lockerId != null">
+        locker_id,
+      </if>
+      <if test="lockerColumn != null">
+        locker_column,
+      </if>
+      <if test="lockerRow != null">
+        locker_row,
+      </if>
+      <if test="doorStatus != null">
+        door_status,
+      </if>
+      <if test="boxIsEmpty != null">
+        box_is_empty,
+      </if>
+      <if test="boxType != null">
+        box_type,
+      </if>
+      <if test="status != null">
+        "status",
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="statusTime != null">
+        status_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lockerBoxId != null">
+        #{lockerBoxId,jdbcType=OTHER},
+      </if>
+      <if test="lockerId != null">
+        #{lockerId,jdbcType=INTEGER},
+      </if>
+      <if test="lockerColumn != null">
+        #{lockerColumn,jdbcType=INTEGER},
+      </if>
+      <if test="lockerRow != null">
+        #{lockerRow,jdbcType=INTEGER},
+      </if>
+      <if test="doorStatus != null">
+        #{doorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="boxIsEmpty != null">
+        #{boxIsEmpty,jdbcType=INTEGER},
+      </if>
+      <if test="boxType != null">
+        #{boxType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.LockerBoxInformation">
+    <!--@mbg.generated-->
+    update locker_box_information
+    <set>
+      <if test="lockerId != null">
+        locker_id = #{lockerId,jdbcType=INTEGER},
+      </if>
+      <if test="lockerColumn != null">
+        locker_column = #{lockerColumn,jdbcType=INTEGER},
+      </if>
+      <if test="lockerRow != null">
+        locker_row = #{lockerRow,jdbcType=INTEGER},
+      </if>
+      <if test="doorStatus != null">
+        door_status = #{doorStatus,jdbcType=INTEGER},
+      </if>
+      <if test="boxIsEmpty != null">
+        box_is_empty = #{boxIsEmpty,jdbcType=INTEGER},
+      </if>
+      <if test="boxType != null">
+        box_type = #{boxType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        "status" = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="statusTime != null">
+        status_time = #{statusTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBoxInformation">
+    <!--@mbg.generated-->
+    update locker_box_information
+    set locker_id = #{lockerId,jdbcType=INTEGER},
+      locker_column = #{lockerColumn,jdbcType=INTEGER},
+      locker_row = #{lockerRow,jdbcType=INTEGER},
+      door_status = #{doorStatus,jdbcType=INTEGER},
+      box_is_empty = #{boxIsEmpty,jdbcType=INTEGER},
+      box_type = #{boxType,jdbcType=INTEGER},
+      "status" = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      status_time = #{statusTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
+  </update>
+</mapper>

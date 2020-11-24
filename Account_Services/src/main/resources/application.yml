@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Account_Services
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:jdbc:postgresql://localhost:26257/els_acc/public/
+    username: root
+    password: 456987
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
