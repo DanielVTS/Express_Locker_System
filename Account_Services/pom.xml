@@ -25,6 +25,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.lingnan</groupId>
+            <artifactId>Common_Api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
         </dependency>

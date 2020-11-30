@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
@@ -17,11 +18,11 @@ public class WebAccount {
     private Integer id;
 
     @NotNull(message = "用户账号不能为空")
-    @Size(min = 6, max = 11, message = "账号长度必须是6-11个字符")
+    @Length(min = 6, max = 11, message = "账号长度必须是6-11个字符")
     private String username;
 
     @NotNull(message = "用户密码不能为空")
-    @Size(min = 8, max = 20, message = "密码长度必须是8-20个字符")
+    @Length(min = 8, max = 20, message = "密码长度必须是8-20个字符")
     private String password;
 
     @NotNull(message = "手机号码不能为空")
