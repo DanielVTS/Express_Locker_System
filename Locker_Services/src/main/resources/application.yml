@@ -3,7 +3,7 @@ spring:
     name: Locker_Services
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:jdbc:postgresql://localhost:26257/els_locker/public/
+    url: jdbc:postgresql://localhost:26257/els_locker
     username: root
     password: 456987
 mybatis:
@@ -11,4 +11,8 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 server:
-  port: 8100
+  port: 8200
+
+logging:
+  level:
+    cn.lingnan: debug

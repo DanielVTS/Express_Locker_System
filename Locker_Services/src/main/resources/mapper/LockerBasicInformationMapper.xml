@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress ALL -->
 <mapper namespace="cn.lingnan.dao.LockerBasicInformationMapper">
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
     <!--@Table locker_basic_information-->
-    <id column="locker_id" jdbcType="INTEGER" property="lockerId" />
+    <id column="locker_id" jdbcType="BIGINT" property="lockerId"/>
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="total_box" jdbcType="INTEGER" property="totalBox" />
@@ -17,32 +18,31 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    locker_id, province, city, total_box, used_box, create_time, update_time, status_time, 
+    locker_id, province, city, total_box, used_box, create_time, update_time, status_time,
     row_num, column_num, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from locker_basic_information
-    where locker_id = #{lockerId,jdbcType=INTEGER}
+    where locker_id = #{lockerId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--@mbg.generated-->
     delete from locker_basic_information
-    where locker_id = #{lockerId,jdbcType=INTEGER}
+    where locker_id = #{lockerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    insert into locker_basic_information (locker_id, province, city, 
-      total_box, used_box, create_time, 
-      update_time, status_time, row_num, 
-      column_num, remark)
-    values (#{lockerId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{totalBox,jdbcType=INTEGER}, #{usedBox,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{rowNum,jdbcType=INTEGER}, 
-      #{columnNum,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+    insert into locker_basic_information (province, city,
+    total_box, used_box, create_time,
+    update_time, status_time, row_num,
+    column_num, remark)
+    values (#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+    #{totalBox,jdbcType=INTEGER}, #{usedBox,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{rowNum,jdbcType=INTEGER},
+    #{columnNum,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
@@ -84,7 +84,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="lockerId != null">
-        #{lockerId,jdbcType=INTEGER},
+        #{lockerId,jdbcType=BIGINT},
       </if>
       <if test="province != null">
         #{province,jdbcType=VARCHAR},
@@ -153,21 +153,26 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where locker_id = #{lockerId,jdbcType=INTEGER}
+    where locker_id = #{lockerId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
     update locker_basic_information
     set province = #{province,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      total_box = #{totalBox,jdbcType=INTEGER},
-      used_box = #{usedBox,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      row_num = #{rowNum,jdbcType=INTEGER},
-      column_num = #{columnNum,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where locker_id = #{lockerId,jdbcType=INTEGER}
+    city = #{city,jdbcType=VARCHAR},
+    total_box = #{totalBox,jdbcType=INTEGER},
+    used_box = #{usedBox,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    status_time = #{statusTime,jdbcType=TIMESTAMP},
+    row_num = #{rowNum,jdbcType=INTEGER},
+    column_num = #{columnNum,jdbcType=INTEGER},
+    remark = #{remark,jdbcType=VARCHAR}
+    where locker_id = #{lockerId,jdbcType=BIGINT}
   </update>
+  <select id="selectAll" parameterType="cn.lingnan.dto.LockerBasicInformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from locker_basic_information
+  </select>
 </mapper>

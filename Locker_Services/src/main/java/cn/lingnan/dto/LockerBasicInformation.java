@@ -1,11 +1,12 @@
 package cn.lingnan.dto;
 
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class LockerBasicInformation {
-    private Integer lockerId;
+    private Long lockerId;
 
     private String province;
 

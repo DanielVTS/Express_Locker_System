@@ -1,18 +1,21 @@
 package cn.lingnan.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import cn.lingnan.dao.LockerBasicInformationMapper;
 import cn.lingnan.dto.LockerBasicInformation;
 import cn.lingnan.service.LockerBasicInformationService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 @Service
-public class LockerBasicInformationServiceImpl implements LockerBasicInformationService{
+public class LockerBasicInformationServiceImpl implements LockerBasicInformationService {
 
     @Resource
     private LockerBasicInformationMapper lockerBasicInformationMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer lockerId) {
+    public int deleteByPrimaryKey(Long lockerId) {
         return lockerBasicInformationMapper.deleteByPrimaryKey(lockerId);
     }
 
@@ -27,7 +30,7 @@ public class LockerBasicInformationServiceImpl implements LockerBasicInformation
     }
 
     @Override
-    public LockerBasicInformation selectByPrimaryKey(Integer lockerId) {
+    public LockerBasicInformation selectByPrimaryKey(Long lockerId) {
         return lockerBasicInformationMapper.selectByPrimaryKey(lockerId);
     }
 
@@ -39,6 +42,11 @@ public class LockerBasicInformationServiceImpl implements LockerBasicInformation
     @Override
     public int updateByPrimaryKey(LockerBasicInformation record) {
         return lockerBasicInformationMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<LockerBasicInformation> selectAll() {
+        return lockerBasicInformationMapper.selectAll();
     }
 
 }
