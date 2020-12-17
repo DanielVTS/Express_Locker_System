@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RequestMapping("lockerBoxInformation")
 @Controller
@@ -48,6 +50,13 @@ public class LockerBoxInformationController {
             throw new APIException(500, "Box记录修改异常！");
         }
         return "Box记录修改成功！";
+    }
+
+    @GetMapping("findBoxListInOneLocker")
+    public List<LockerBoxInformation> FindBoxListInOneLocker(String LockerId) {
+        logger.info("ID查找Locker ==>ID: " + LockerId);
+
+
     }
 
 
