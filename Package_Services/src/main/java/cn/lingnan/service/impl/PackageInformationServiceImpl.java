@@ -1,18 +1,21 @@
 package cn.lingnan.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import cn.lingnan.dao.PackageInformationMapper;
 import cn.lingnan.dto.PackageInformation;
 import cn.lingnan.service.PackageInformationService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 @Service
-public class PackageInformationServiceImpl implements PackageInformationService{
+public class PackageInformationServiceImpl implements PackageInformationService {
 
     @Resource
     private PackageInformationMapper packageInformationMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer packageId) {
+    public int deleteByPrimaryKey(Long packageId) {
         return packageInformationMapper.deleteByPrimaryKey(packageId);
     }
 
@@ -27,7 +30,7 @@ public class PackageInformationServiceImpl implements PackageInformationService{
     }
 
     @Override
-    public PackageInformation selectByPrimaryKey(Integer packageId) {
+    public PackageInformation selectByPrimaryKey(Long packageId) {
         return packageInformationMapper.selectByPrimaryKey(packageId);
     }
 
@@ -41,4 +44,8 @@ public class PackageInformationServiceImpl implements PackageInformationService{
         return packageInformationMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public List<PackageInformation> findByExpressNumber(Long expressNumber) {
+        return packageInformationMapper.findByExpressNumber(expressNumber);
+    }
 }

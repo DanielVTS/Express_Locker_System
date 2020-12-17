@@ -4,45 +4,45 @@
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.PackageInformation">
     <!--@mbg.generated-->
     <!--@Table package_information-->
-    <id column="package_id" jdbcType="INTEGER" property="packageId" />
-    <result column="express_number" jdbcType="INTEGER" property="expressNumber" />
-    <result column="express_company" jdbcType="INTEGER" property="expressCompany" />
-    <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone" />
-    <result column="exp_operator_id" jdbcType="INTEGER" property="expOperatorId" />
-    <result column="exp_operator_phone" jdbcType="VARCHAR" property="expOperatorPhone" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <id column="package_id" jdbcType="BIGINT" property="packageId"/>
+    <result column="express_number" jdbcType="BIGINT" property="expressNumber"/>
+    <result column="express_company" jdbcType="INTEGER" property="expressCompany"/>
+    <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone"/>
+    <result column="exp_operator_id" jdbcType="INTEGER" property="expOperatorId"/>
+    <result column="exp_operator_phone" jdbcType="VARCHAR" property="expOperatorPhone"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     package_id, express_number, express_company, receiver_phone, exp_operator_id, exp_operator_phone, 
     create_time, update_time, status_time, "status", remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.BIGINT" resultMap="BaseResultMap">
     <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from package_information
-    where package_id = #{packageId,jdbcType=INTEGER}
+    where package_id = #{packageId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
     delete from package_information
-    where package_id = #{packageId,jdbcType=INTEGER}
+    where package_id = #{packageId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.PackageInformation">
     <!--@mbg.generated-->
-    insert into package_information (package_id, express_number, express_company, 
-      receiver_phone, exp_operator_id, exp_operator_phone, 
-      create_time, update_time, status_time, 
-      "status", remark)
-    values (#{packageId,jdbcType=INTEGER}, #{expressNumber,jdbcType=INTEGER}, #{expressCompany,jdbcType=INTEGER}, 
-      #{receiverPhone,jdbcType=VARCHAR}, #{expOperatorId,jdbcType=INTEGER}, #{expOperatorPhone,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+    insert into package_information (package_id, express_number, express_company,
+    receiver_phone, exp_operator_id, exp_operator_phone,
+    create_time, update_time, status_time,
+    "status", remark)
+    values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=BIGINT}, #{expressCompany,jdbcType=INTEGER},
+    #{receiverPhone,jdbcType=VARCHAR}, #{expOperatorId,jdbcType=INTEGER}, #{expOperatorPhone,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP},
+    #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.PackageInformation">
     <!--@mbg.generated-->
@@ -84,10 +84,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="packageId != null">
-        #{packageId,jdbcType=INTEGER},
+        #{packageId,jdbcType=BIGINT},
       </if>
       <if test="expressNumber != null">
-        #{expressNumber,jdbcType=INTEGER},
+        #{expressNumber,jdbcType=BIGINT},
       </if>
       <if test="expressCompany != null">
         #{expressCompany,jdbcType=INTEGER},
@@ -123,7 +123,7 @@
     update package_information
     <set>
       <if test="expressNumber != null">
-        express_number = #{expressNumber,jdbcType=INTEGER},
+        express_number = #{expressNumber,jdbcType=BIGINT},
       </if>
       <if test="expressCompany != null">
         express_company = #{expressCompany,jdbcType=INTEGER},
@@ -153,21 +153,27 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where package_id = #{packageId,jdbcType=INTEGER}
+    where package_id = #{packageId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.PackageInformation">
     <!--@mbg.generated-->
     update package_information
-    set express_number = #{expressNumber,jdbcType=INTEGER},
-      express_company = #{expressCompany,jdbcType=INTEGER},
-      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
-      exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
-      exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      "status" = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where package_id = #{packageId,jdbcType=INTEGER}
+    set express_number = #{expressNumber,jdbcType=BIGINT},
+    express_company = #{expressCompany,jdbcType=INTEGER},
+    receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+    exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
+    exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    status_time = #{statusTime,jdbcType=TIMESTAMP},
+    "status" = #{status,jdbcType=INTEGER},
+    remark = #{remark,jdbcType=VARCHAR}
+    where package_id = #{packageId,jdbcType=BIGINT}
   </update>
+  <select id="findByExpressNumber" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from package_information
+    where express_number= #{express_number,jdbcType=BIGINT}
+  </select>
 </mapper>

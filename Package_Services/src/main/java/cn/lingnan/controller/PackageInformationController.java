@@ -11,8 +11,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RequestMapping("packageInformation")
 @Controller
@@ -23,6 +25,7 @@ public class PackageInformationController {
     private final Logger logger = LoggerFactory.getLogger(PackageInformationService.class);
 
     @PostMapping("addPackage")
+    @ResponseBody
     public String AddLockerBox(@RequestBody @Validated PackageInformation record) {
         logger.info("添加LockerBox ==>" + record.toString());
         int result = packageInformationService.insert(record);
@@ -33,6 +36,7 @@ public class PackageInformationController {
     }
 
     @PostMapping("removePackage")
+    @ResponseBody
     public String RemoveLockerBox(@RequestBody @Validated PackageInformation record) {
         logger.info("删除Locker ==>" + record.toString());
         int result = packageInformationService.deleteByPrimaryKey(record.getPackageId());
@@ -43,6 +47,7 @@ public class PackageInformationController {
     }
 
     @PostMapping("editPackage")
+    @ResponseBody
     public String EditLockerBox(@RequestBody @Validated PackageInformation record) {
         logger.info("修改Locker ==>" + record.toString());
         int result = packageInformationService.updateByPrimaryKey(record);
@@ -51,5 +56,18 @@ public class PackageInformationController {
         }
         return "Package记录修改成功！";
     }
+
+    @PostMapping("findByExpressNumber")
+    @ResponseBody
+    public Object findByExpressNumber(Long expressNumber) {
+        logger.info("快递号查找Package ==>" + expressNumber);
+        List<PackageInformation> record = packageInformationService.findByExpressNumber(expressNumber);
+        if (!record.isEmpty()) {
+            return record;
+        } else {
+            return "查无记录！";
+        }
+    }
+
 
 }
