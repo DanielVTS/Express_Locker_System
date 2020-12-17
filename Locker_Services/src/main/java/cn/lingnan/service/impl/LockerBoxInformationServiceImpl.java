@@ -1,12 +1,15 @@
 package cn.lingnan.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import cn.lingnan.dao.LockerBoxInformationMapper;
 import cn.lingnan.dto.LockerBoxInformation;
 import cn.lingnan.service.LockerBoxInformationService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 @Service
-public class LockerBoxInformationServiceImpl implements LockerBoxInformationService{
+public class LockerBoxInformationServiceImpl implements LockerBoxInformationService {
 
     @Resource
     private LockerBoxInformationMapper lockerBoxInformationMapper;
@@ -41,4 +44,8 @@ public class LockerBoxInformationServiceImpl implements LockerBoxInformationServ
         return lockerBoxInformationMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public List<LockerBoxInformation> findBoxListInOneLocker(Long lockerId) {
+        return lockerBoxInformationMapper.findBoxListInOneLocker(lockerId);
+    }
 }

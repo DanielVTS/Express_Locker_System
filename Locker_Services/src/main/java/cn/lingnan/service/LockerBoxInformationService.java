@@ -1,7 +1,10 @@
 package cn.lingnan.service;
 
 import cn.lingnan.dto.LockerBoxInformation;
-public interface LockerBoxInformationService{
+
+import java.util.List;
+
+public interface LockerBoxInformationService {
 
 
     int deleteByPrimaryKey(Object lockerBoxId);
@@ -15,5 +18,7 @@ public interface LockerBoxInformationService{
     int updateByPrimaryKeySelective(LockerBoxInformation record);
 
     int updateByPrimaryKey(LockerBoxInformation record);
+
+    List<LockerBoxInformation> findBoxListInOneLocker(Long lockerId);
 
 }

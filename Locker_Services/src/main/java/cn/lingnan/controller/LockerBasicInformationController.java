@@ -21,6 +21,7 @@ public class LockerBasicInformationController {
     private LockerBasicInformationService lockerBasicInformationService;
 
     @PostMapping("addLocker")
+    @ResponseBody
     public String AddLocker(@RequestBody @Validated LockerBasicInformation record) {
         logger.info("添加Locker ==>" + record.toString());
         int result = lockerBasicInformationService.insert(record);
@@ -31,6 +32,7 @@ public class LockerBasicInformationController {
     }
 
     @PostMapping("removeLocker")
+    @ResponseBody
     public String RemoveLocker(@RequestBody @Validated LockerBasicInformation record) {
         logger.info("删除Locker ==>" + record.toString());
         int result = lockerBasicInformationService.deleteByPrimaryKey(record.getLockerId());
@@ -41,6 +43,7 @@ public class LockerBasicInformationController {
     }
 
     @PostMapping("editLocker")
+    @ResponseBody
     public String EditLocker(@RequestBody @Validated LockerBasicInformation record) {
         logger.info("修改Locker ==>" + record.toString());
         int result = lockerBasicInformationService.updateByPrimaryKey(record);

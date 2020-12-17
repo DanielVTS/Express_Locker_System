@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,6 +20,7 @@ public class LockerBoxInformationController {
     private LockerBoxInformationService lockerBoxInformationService;
 
     @PostMapping("addLockerBox")
+    @ResponseBody
     public String AddLockerBox(@RequestBody @Validated LockerBoxInformation record) {
         logger.info("添加LockerBox ==>" + record.toString());
         int result = lockerBoxInformationService.insert(record);
@@ -33,6 +31,7 @@ public class LockerBoxInformationController {
     }
 
     @PostMapping("removeLockerBox")
+    @ResponseBody
     public String RemoveLockerBox(@RequestBody @Validated LockerBoxInformation record) {
         logger.info("删除Locker ==>" + record.toString());
         int result = lockerBoxInformationService.deleteByPrimaryKey(record.getLockerId());
@@ -43,6 +42,7 @@ public class LockerBoxInformationController {
     }
 
     @PostMapping("editLockerBox")
+    @ResponseBody
     public String EditLockerBox(@RequestBody @Validated LockerBoxInformation record) {
         logger.info("修改Locker ==>" + record.toString());
         int result = lockerBoxInformationService.updateByPrimaryKey(record);
@@ -53,11 +53,14 @@ public class LockerBoxInformationController {
     }
 
     @GetMapping("findBoxListInOneLocker")
-    public List<LockerBoxInformation> FindBoxListInOneLocker(String LockerId) {
-        logger.info("ID查找Locker ==>ID: " + LockerId);
-
-
+    @ResponseBody
+    public Object FindBoxListInOneLocker(String lockerId) {
+        logger.info("ID查找Locker ==>ID: " + lockerId);
+        List<LockerBoxInformation> record = lockerBoxInformationService.findBoxListInOneLocker(Long.parseLong(lockerId));
+        if (!record.isEmpty()) {
+            return record;
+        } else {
+            return "查无记录！";
+        }
     }
-
-
 }
