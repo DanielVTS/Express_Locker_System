@@ -1,13 +1,14 @@
 package cn.lingnan.dto;
 
-import java.util.Date;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class LockerBoxInformation {
     private Object lockerBoxId;
 
-    private Integer lockerId;
+    private Long lockerId;
 
     private Integer lockerColumn;
 
