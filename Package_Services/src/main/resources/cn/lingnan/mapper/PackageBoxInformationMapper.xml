@@ -4,17 +4,17 @@
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
     <!--@Table package_box_information-->
-    <id column="pbi_id" jdbcType="OTHER" property="pbiId" />
-    <result column="package_id" jdbcType="INTEGER" property="packageId" />
-    <result column="locker_id" jdbcType="INTEGER" property="lockerId" />
-    <result column="locker_box_id" jdbcType="OTHER" property="lockerBoxId" />
-    <result column="package_code" jdbcType="VARCHAR" property="packageCode" />
-    <result column="operator_id" jdbcType="VARCHAR" property="operatorId" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <id column="pbi_id" jdbcType="OTHER" property="pbiId"/>
+    <result column="package_id" jdbcType="BIGINT" property="packageId"/>
+    <result column="locker_id" jdbcType="BIGINT" property="lockerId"/>
+    <result column="locker_box_id" jdbcType="OTHER" property="lockerBoxId"/>
+    <result column="package_code" jdbcType="VARCHAR" property="packageCode"/>
+    <result column="operator_id" jdbcType="VARCHAR" property="operatorId"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="remark" jdbcType="VARCHAR" property="remark"/>
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
@@ -35,14 +35,14 @@
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    insert into package_box_information (pbi_id, package_id, locker_id, 
-      locker_box_id, package_code, operator_id, 
-      create_time, update_time, status_time, 
-      "status", remark)
-    values (#{pbiId,jdbcType=OTHER}, #{packageId,jdbcType=INTEGER}, #{lockerId,jdbcType=INTEGER}, 
-      #{lockerBoxId,jdbcType=OTHER}, #{packageCode,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+    insert into package_box_information (pbi_id, package_id, locker_id,
+    locker_box_id, package_code, operator_id,
+    create_time, update_time, status_time,
+    "status", remark)
+    values (#{pbiId,jdbcType=OTHER}, #{packageId,jdbcType=BIGINT}, #{lockerId,jdbcType=BIGINT},
+    #{lockerBoxId,jdbcType=OTHER}, #{packageCode,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR},
+    #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP},
+    #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
@@ -87,10 +87,10 @@
         #{pbiId,jdbcType=OTHER},
       </if>
       <if test="packageId != null">
-        #{packageId,jdbcType=INTEGER},
+        #{packageId,jdbcType=BIGINT},
       </if>
       <if test="lockerId != null">
-        #{lockerId,jdbcType=INTEGER},
+        #{lockerId,jdbcType=BIGINT},
       </if>
       <if test="lockerBoxId != null">
         #{lockerBoxId,jdbcType=OTHER},
@@ -123,10 +123,10 @@
     update package_box_information
     <set>
       <if test="packageId != null">
-        package_id = #{packageId,jdbcType=INTEGER},
+        package_id = #{packageId,jdbcType=BIGINT},
       </if>
       <if test="lockerId != null">
-        locker_id = #{lockerId,jdbcType=INTEGER},
+        locker_id = #{lockerId,jdbcType=BIGINT},
       </if>
       <if test="lockerBoxId != null">
         locker_box_id = #{lockerBoxId,jdbcType=OTHER},
@@ -158,16 +158,22 @@
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
     update package_box_information
-    set package_id = #{packageId,jdbcType=INTEGER},
-      locker_id = #{lockerId,jdbcType=INTEGER},
-      locker_box_id = #{lockerBoxId,jdbcType=OTHER},
-      package_code = #{packageCode,jdbcType=VARCHAR},
-      operator_id = #{operatorId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      "status" = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
+    set package_id = #{packageId,jdbcType=BIGINT},
+    locker_id = #{lockerId,jdbcType=BIGINT},
+    locker_box_id = #{lockerBoxId,jdbcType=OTHER},
+    package_code = #{packageCode,jdbcType=VARCHAR},
+    operator_id = #{operatorId,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    status_time = #{statusTime,jdbcType=TIMESTAMP},
+    "status" = #{status,jdbcType=INTEGER},
+    remark = #{remark,jdbcType=VARCHAR}
     where pbi_id = #{pbiId,jdbcType=OTHER}
   </update>
+  <select id="findByPackageId" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from package_box_information
+    where package_id= #{packageId,jdbcType=BIGINT}
+  </select>
 </mapper>

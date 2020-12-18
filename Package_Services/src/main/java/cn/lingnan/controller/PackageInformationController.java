@@ -26,41 +26,41 @@ public class PackageInformationController {
 
     @PostMapping("addPackage")
     @ResponseBody
-    public String AddLockerBox(@RequestBody @Validated PackageInformation record) {
-        logger.info("添加LockerBox ==>" + record.toString());
+    public String AddPackageInformation(@RequestBody @Validated PackageInformation record) {
+        logger.info("添加PackageInformation ==>" + record.toString());
         int result = packageInformationService.insert(record);
         if (result != 1) {
-            throw new APIException(500, "Package记录插入异常！");
+            throw new APIException(500, "PackageInformation记录插入异常！");
         }
-        return "Package记录插入成功！";
+        return "PackageInformation记录插入成功！";
     }
 
     @PostMapping("removePackage")
     @ResponseBody
-    public String RemoveLockerBox(@RequestBody @Validated PackageInformation record) {
-        logger.info("删除Locker ==>" + record.toString());
+    public String RemovePackageInformation(@RequestBody @Validated PackageInformation record) {
+        logger.info("删除PackageInformation ==>" + record.toString());
         int result = packageInformationService.deleteByPrimaryKey(record.getPackageId());
         if (result != 1) {
-            throw new APIException(500, "Package记录删除异常！");
+            throw new APIException(500, "PackageInformation记录删除异常！");
         }
-        return "Package记录删除成功！";
+        return "PackageInformation记录删除成功！";
     }
 
     @PostMapping("editPackage")
     @ResponseBody
-    public String EditLockerBox(@RequestBody @Validated PackageInformation record) {
-        logger.info("修改Locker ==>" + record.toString());
+    public String EditPackageInformation(@RequestBody @Validated PackageInformation record) {
+        logger.info("修改PackageInformation ==>" + record.toString());
         int result = packageInformationService.updateByPrimaryKey(record);
         if (result != 1) {
-            throw new APIException(500, "Package记录修改异常！");
+            throw new APIException(500, "PackageInformation记录修改异常！");
         }
-        return "Package记录修改成功！";
+        return "PackageInformation记录修改成功！";
     }
 
     @PostMapping("findByExpressNumber")
     @ResponseBody
     public Object findByExpressNumber(Long expressNumber) {
-        logger.info("快递号查找Package ==>" + expressNumber);
+        logger.info("快递号查找PackageInformation ==>" + expressNumber);
         List<PackageInformation> record = packageInformationService.findByExpressNumber(expressNumber);
         if (!record.isEmpty()) {
             return record;

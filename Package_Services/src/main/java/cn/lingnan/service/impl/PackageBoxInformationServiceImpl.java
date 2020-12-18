@@ -1,10 +1,11 @@
 package cn.lingnan.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import cn.lingnan.dto.PackageBoxInformation;
 import cn.lingnan.dao.PackageBoxInformationMapper;
+import cn.lingnan.dto.PackageBoxInformation;
 import cn.lingnan.service.PackageBoxInformationService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 @Service
 public class PackageBoxInformationServiceImpl implements PackageBoxInformationService{
 
@@ -41,4 +42,8 @@ public class PackageBoxInformationServiceImpl implements PackageBoxInformationSe
         return packageBoxInformationMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public PackageBoxInformation findByPackageId(Long packageId) {
+        return packageBoxInformationMapper.findByPackageId(packageId);
+    }
 }

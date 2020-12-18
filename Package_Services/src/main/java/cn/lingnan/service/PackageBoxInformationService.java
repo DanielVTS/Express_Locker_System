@@ -16,4 +16,6 @@ public interface PackageBoxInformationService{
 
     int updateByPrimaryKey(PackageBoxInformation record);
 
+    PackageBoxInformation findByPackageId(Long packageId);
+
 }

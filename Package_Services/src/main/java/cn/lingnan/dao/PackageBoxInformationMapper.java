@@ -16,4 +16,6 @@ public interface PackageBoxInformationMapper {
     int updateByPrimaryKeySelective(PackageBoxInformation record);
 
     int updateByPrimaryKey(PackageBoxInformation record);
+
+    PackageBoxInformation findByPackageId(Long packageId);
 }
