@@ -42,6 +42,7 @@
                     <target>6</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -50,7 +51,7 @@
                     <!--fork : 如果没有该项配置devtools不会起作用，即应用不会restart -->
                     <fork>true</fork>
                     <addResources>true</addResources><!--支持静态文件热部署 -->
-                    <mainClass>cn.lingnan.LockerServicesApp</mainClass>
+                    <mainClass>cn.lingnan.PackageServicesApp</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -68,19 +69,11 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/webapp</directory>
-            </resource>
-            <resource>
                 <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
             </resource>
         </resources>
     </build>
