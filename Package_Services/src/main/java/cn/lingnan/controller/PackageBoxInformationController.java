@@ -46,7 +46,7 @@ public class PackageBoxInformationController {
 
     @PostMapping("edit")
     @ResponseBody
-    public String EditLockerBox(@RequestBody @Validated PackageBoxInformation record) {
+    public String EditPackageBoxInformation(@RequestBody @Validated PackageBoxInformation record) {
         logger.info("修改PackageBoxInformation ==>" + record.toString());
         int result = packageBoxInformationService.updateByPrimaryKey(record);
         if (result != 1) {
