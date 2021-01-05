@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: account_services_deployment
+  name: account-services-deployment
   labels:
     app: account_services
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: account_services
+      app: account-services
   template:
     metadata:
       labels:
-        app: account_services
+        app: account-services
     spec:
       containers:
-        - name: account_services
-          image: danielvts/express_locker_system:account_services
+        - name: account-services
+          image: registry.cn-shenzhen.aliyuncs.com/danielvt/vt:Account_Services-v1.0
           ports:
             - containerPort: 8100
