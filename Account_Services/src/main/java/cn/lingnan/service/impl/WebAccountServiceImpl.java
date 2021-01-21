@@ -1,12 +1,15 @@
 package cn.lingnan.service.impl;
 
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import cn.lingnan.dto.WebAccount;
 import cn.lingnan.dao.WebAccountMapper;
+import cn.lingnan.dto.WebAccount;
 import cn.lingnan.service.WebAccountService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
 @Service
-public class WebAccountServiceImpl implements WebAccountService{
+public class WebAccountServiceImpl implements WebAccountService {
 
     @Resource
     private WebAccountMapper webAccountMapper;
@@ -41,4 +44,13 @@ public class WebAccountServiceImpl implements WebAccountService{
         return webAccountMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public List<WebAccount> findByPhone(String phone) {
+        return webAccountMapper.findByPhone(phone);
+    }
+
+    @Override
+    public List<WebAccount> findByName(String name) {
+        return webAccountMapper.findByName(name);
+    }
 }

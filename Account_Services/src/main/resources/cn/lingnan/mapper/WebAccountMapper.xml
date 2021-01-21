@@ -160,14 +160,28 @@
     update web_account
     set username = #{username,jdbcType=VARCHAR},
       "password" = #{password,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      "status" = #{status,jdbcType=INTEGER},
-      exp_time = #{expTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      authority = #{authority,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+    phone = #{phone,jdbcType=VARCHAR},
+    "status" = #{status,jdbcType=INTEGER},
+    exp_time = #{expTime,jdbcType=TIMESTAMP},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = #{updateTime,jdbcType=TIMESTAMP},
+    status_time = #{statusTime,jdbcType=TIMESTAMP},
+    authority = #{authority,jdbcType=VARCHAR},
+    remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from web_account
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from web_account
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
 </mapper>

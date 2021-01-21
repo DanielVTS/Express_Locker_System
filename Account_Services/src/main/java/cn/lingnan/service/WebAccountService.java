@@ -1,7 +1,10 @@
 package cn.lingnan.service;
 
 import cn.lingnan.dto.WebAccount;
-public interface WebAccountService{
+
+import java.util.List;
+
+public interface WebAccountService {
 
 
     int deleteByPrimaryKey(Integer id);
@@ -15,5 +18,9 @@ public interface WebAccountService{
     int updateByPrimaryKeySelective(WebAccount record);
 
     int updateByPrimaryKey(WebAccount record);
+
+    List<WebAccount> findByPhone(String phone);
+
+    List<WebAccount> findByName(String name);
 
 }
