@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: account-services-deployment
+  namespace: express
   labels:
     app: account_services
 spec:

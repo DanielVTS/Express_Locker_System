@@ -59,7 +59,7 @@ public class PackageInformationController {
 
     @PostMapping("findByExpressNumber")
     @ResponseBody
-    public Object findByExpressNumber(Long expressNumber) {
+    public Object findByExpressNumber(String expressNumber) {
         logger.info("快递号查找PackageInformation ==>" + expressNumber);
         List<PackageInformation> record = packageInformationService.findByExpressNumber(expressNumber);
         if (!record.isEmpty()) {

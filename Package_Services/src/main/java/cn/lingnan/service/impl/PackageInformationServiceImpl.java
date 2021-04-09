@@ -45,7 +45,7 @@ public class PackageInformationServiceImpl implements PackageInformationService 
     }
 
     @Override
-    public List<PackageInformation> findByExpressNumber(Long expressNumber) {
+    public List<PackageInformation> findByExpressNumber(String expressNumber) {
         return packageInformationMapper.findByExpressNumber(expressNumber);
     }
 }

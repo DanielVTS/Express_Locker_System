@@ -19,6 +19,6 @@ public interface PackageInformationService {
 
     int updateByPrimaryKey(PackageInformation record);
 
-    List<PackageInformation> findByExpressNumber(Long expressNumber);
+    List<PackageInformation> findByExpressNumber(String expressNumber);
 
 }

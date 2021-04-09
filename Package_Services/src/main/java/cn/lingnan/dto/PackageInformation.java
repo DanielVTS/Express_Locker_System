@@ -1,18 +1,27 @@
 package cn.lingnan.dto;
 
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class PackageInformation {
     private Long packageId;
 
-    private Long expressNumber;
+    private String expressNumber;
 
     private Integer expressCompany;
 
     private String receiverPhone;
+
+    private String receiverAddress;
+
+    private String receiverName;
+
+    private String senderName;
+
+    private String senderPhone;
+
+    private String senderAddress;
 
     private Integer expOperatorId;
 
