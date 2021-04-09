@@ -3,7 +3,7 @@
 <mapper namespace="cn.lingnan.dao.LockerBoxInformationMapper">
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBoxInformation">
     <!--@mbg.generated-->
-    <!--@Table locker_box_information-->
+    <!--@Table els_locker.locker_box_information-->
     <id column="locker_box_id" jdbcType="OTHER" property="lockerBoxId" />
     <result column="locker_id" jdbcType="BIGINT" property="lockerId"/>
     <result column="locker_column" jdbcType="INTEGER" property="lockerColumn" />
@@ -26,17 +26,17 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from locker_box_information
+    from els_locker.locker_box_information
     where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
     <!--@mbg.generated-->
-    delete from locker_box_information
+    delete from els_locker.locker_box_information
     where locker_box_id = #{lockerBoxId,jdbcType=OTHER}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.LockerBoxInformation">
     <!--@mbg.generated-->
-    insert into locker_box_information (locker_box_id, locker_id, locker_column,
+    insert into els_locker.locker_box_information (locker_box_id, locker_id, locker_column,
     locker_row, door_status, box_is_empty,
     box_type, "status", create_time,
     update_time, status_time, remark
@@ -49,7 +49,7 @@
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBoxInformation">
     <!--@mbg.generated-->
-    insert into locker_box_information
+    insert into els_locker.locker_box_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="lockerBoxId != null">
         locker_box_id,
@@ -129,7 +129,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.LockerBoxInformation">
     <!--@mbg.generated-->
-    update locker_box_information
+    update els_locker.locker_box_information
     <set>
       <if test="lockerId != null">
         locker_id = #{lockerId,jdbcType=BIGINT},
@@ -169,7 +169,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBoxInformation">
     <!--@mbg.generated-->
-    update locker_box_information
+    update els_locker.locker_box_information
     set locker_id = #{lockerId,jdbcType=BIGINT},
     locker_column = #{lockerColumn,jdbcType=INTEGER},
     locker_row = #{lockerRow,jdbcType=INTEGER},
@@ -186,7 +186,7 @@
   <select id="findBoxListInOneLocker" parameterType="cn.lingnan.dto.LockerBoxInformation" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from locker_box_information
+    from els_locker.locker_box_information
     where locker_id= #{lockerId,jdbcType=BIGINT}
   </select>
 </mapper>

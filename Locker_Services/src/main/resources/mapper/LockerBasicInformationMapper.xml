@@ -4,7 +4,7 @@
 <mapper namespace="cn.lingnan.dao.LockerBasicInformationMapper">
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    <!--@Table locker_basic_information-->
+    <!--@Table els_locker.locker_basic_information-->
     <id column="locker_id" jdbcType="BIGINT" property="lockerId"/>
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
@@ -25,17 +25,17 @@
     <!--@mbg.generated-->
     select
     <include refid="Base_Column_List"/>
-    from locker_basic_information
+    from els_locker.locker_basic_information
     where locker_id = #{lockerId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--@mbg.generated-->
-    delete from locker_basic_information
+    delete from els_locker.locker_basic_information
     where locker_id = #{lockerId,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    insert into locker_basic_information (province, city,
+    insert into els_locker.locker_basic_information (province, city,
     total_box, used_box, create_time,
     update_time, status_time, row_num,
     column_num, remark)
@@ -46,7 +46,7 @@
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    insert into locker_basic_information
+    insert into els_locker.locker_basic_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="lockerId != null">
         locker_id,
@@ -120,7 +120,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    update locker_basic_information
+    update els_locker.locker_basic_information
     <set>
       <if test="province != null">
         province = #{province,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBasicInformation">
     <!--@mbg.generated-->
-    update locker_basic_information
+    update els_locker.locker_basic_information
     set province = #{province,jdbcType=VARCHAR},
     city = #{city,jdbcType=VARCHAR},
     total_box = #{totalBox,jdbcType=INTEGER},
@@ -173,6 +173,6 @@
   <select id="selectAll" parameterType="cn.lingnan.dto.LockerBasicInformation" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from locker_basic_information
+    from els_locker.locker_basic_information
   </select>
 </mapper>

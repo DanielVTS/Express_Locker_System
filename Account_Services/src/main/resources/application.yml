@@ -3,9 +3,7 @@ spring:
     name: Account_Services
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgres://vt:BkMStCN_Fd4Mu8tr@free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=crdb_cert/cc-ca.crt&options=--cluster=hairy-zebra-1673
-    username: root
-    password: 456987
+    url: jdbc:postgresql://free-tier.gcp-us-central1.cockroachlabs.cloud:26257/defaultdb?user=vt&password=BkMStCN_Fd4Mu8tr&sslmode=verify-full&sslrootcert=E:\\cc-ca.crt&options=--cluster=hairy-zebra-1673
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:

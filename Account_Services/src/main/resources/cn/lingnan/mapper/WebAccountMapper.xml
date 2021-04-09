@@ -3,7 +3,7 @@
 <mapper namespace="cn.lingnan.dao.WebAccountMapper">
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.WebAccount">
     <!--@mbg.generated-->
-    <!--@Table web_account-->
+    <!--@Table els_acc.web_account-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -25,17 +25,17 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from web_account
+    from els_acc.web_account
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--@mbg.generated-->
-    delete from web_account
+    delete from els_acc.web_account
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.WebAccount">
     <!--@mbg.generated-->
-    insert into web_account (id, username, "password", 
+    insert into els_acc.web_account (id, username, "password",
       phone, "status", exp_time, 
       create_time, update_time, status_time, 
       authority, remark)
@@ -46,7 +46,7 @@
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.WebAccount">
     <!--@mbg.generated-->
-    insert into web_account
+    insert into els_acc.web_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -120,7 +120,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.WebAccount">
     <!--@mbg.generated-->
-    update web_account
+    update els_acc.web_account
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.WebAccount">
     <!--@mbg.generated-->
-    update web_account
+    update els_acc.web_account
     set username = #{username,jdbcType=VARCHAR},
       "password" = #{password,jdbcType=VARCHAR},
     phone = #{phone,jdbcType=VARCHAR},
@@ -174,14 +174,14 @@
   <select id="findByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from web_account
+    from els_acc.web_account
     where phone = #{phone,jdbcType=VARCHAR}
   </select>
 
   <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from web_account
+    from els_acc.web_account
     where username = #{username,jdbcType=VARCHAR}
   </select>
 </mapper>
