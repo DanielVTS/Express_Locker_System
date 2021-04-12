@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: package-services-deployment
+  namespace: express
+  labels:
+    app: package-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: package-services
+  template:
+    metadata:
+      labels:
+        app: package-services
+    spec:
+      containers:
+        - name: package-services
+          image: registry.cn-shenzhen.aliyuncs.com/danielvt/vt:Package_Services-v1.0
+          ports:
+            - containerPort: 8300
