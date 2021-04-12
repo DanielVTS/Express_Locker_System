@@ -43,11 +43,11 @@ public class WebAccountController {
 
     @PostMapping("login")
     @ResponseBody
-    public CommonResult<Object> login(@RequestBody String user, String password) {
+    public CommonResult<Object> login(@RequestBody String username, String password) {
         List<WebAccount> result = null;
-        if (PhoneFormatCheckUtils.isPhoneLegal(user)) {
-            result = webAccountService.findByPhone(user);
-        } else result = webAccountService.findByName(user);
+        if (PhoneFormatCheckUtils.isPhoneLegal(username)) {
+            result = webAccountService.findByPhone(username);
+        } else result = webAccountService.findByName(username);
         WebAccount account = null;
         if (result != null) {
             for (WebAccount a : result) {
