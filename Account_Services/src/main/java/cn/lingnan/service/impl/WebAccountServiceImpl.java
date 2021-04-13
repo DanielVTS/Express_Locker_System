@@ -3,6 +3,9 @@ package cn.lingnan.service.impl;
 import cn.lingnan.dao.WebAccountMapper;
 import cn.lingnan.dto.WebAccount;
 import cn.lingnan.service.WebAccountService;
+import cn.lingnan.util.PageResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +18,7 @@ public class WebAccountServiceImpl implements WebAccountService {
     private WebAccountMapper webAccountMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
+    public int deleteByPrimaryKey(Long id) {
         return webAccountMapper.deleteByPrimaryKey(id);
     }
 
@@ -30,7 +33,7 @@ public class WebAccountServiceImpl implements WebAccountService {
     }
 
     @Override
-    public WebAccount selectByPrimaryKey(Integer id) {
+    public WebAccount selectByPrimaryKey(Long id) {
         return webAccountMapper.selectByPrimaryKey(id);
     }
 
@@ -53,4 +56,16 @@ public class WebAccountServiceImpl implements WebAccountService {
     public List<WebAccount> findByName(String name) {
         return webAccountMapper.findByName(name);
     }
+
+    public PageResult<WebAccount> findUserByPage(String query, Integer pagenum, Integer pagesize){
+        PageHelper.startPage(pagenum, pagesize);
+        if(query==null) {
+            query="%%";
+        }else{
+            query="%"+query+"%";
+        }
+        PageInfo<WebAccount> pageInfo=new PageInfo<>(webAccountMapper.findAll(query));
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
+    }
+
 }

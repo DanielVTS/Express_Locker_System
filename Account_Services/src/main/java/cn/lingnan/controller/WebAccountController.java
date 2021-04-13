@@ -5,29 +5,28 @@ import cn.lingnan.dto.WebAccount;
 import cn.lingnan.exception.APIException;
 import cn.lingnan.service.WebAccountService;
 import cn.lingnan.util.CommonResult;
+import cn.lingnan.util.PageResult;
 import cn.lingnan.util.PhoneFormatCheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("account")
-@Controller
+@RestController
 public class WebAccountController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    @Autowired
+    @Resource
     private WebAccountService webAccountService;
 
     @PostMapping("register")
-    @ResponseBody
     public CommonResult<Object> register(@RequestBody @Validated WebAccount webAccount) {
         Calendar a = Calendar.getInstance();
         webAccount.setCreateTime(a.getTime());
@@ -42,9 +41,19 @@ public class WebAccountController {
     }
 
     @PostMapping("login")
-    @ResponseBody
-    public CommonResult<Object> login(@RequestBody String username, String password) {
-        List<WebAccount> result = null;
+    public CommonResult<Object> login(@RequestBody Map<String, String> map) {
+        String username=null,password=null;
+        if(map.containsKey("username")){
+            username = map.get("username").toString();
+        }else{
+            return CommonResult.failed();
+        }
+        if(map.containsKey("password")){
+            password = map.get("password").toString();
+        }else{
+            return CommonResult.failed();
+        }
+        List<WebAccount> result;
         if (PhoneFormatCheckUtils.isPhoneLegal(username)) {
             result = webAccountService.findByPhone(username);
         } else result = webAccountService.findByName(username);
@@ -59,7 +68,24 @@ public class WebAccountController {
         if (account != null) {
             logger.info(account.toString());
             return CommonResult.success();
-        } else return CommonResult.failed("用户名或密码错误！");
+        } else return CommonResult.validateFailed("用户名或密码错误！");
+    }
+
+    @GetMapping("list")
+    public CommonResult<Object> queryUserByPage(
+            @RequestParam(name = "query", required = false) String query,
+            @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize){
+
+        if (pagenum <= 0 || pagesize <= 0) {
+            return CommonResult.failed("参数有误！");
+        }
+        PageResult<WebAccount> pageResult=webAccountService.findUserByPage(query,pagenum,pagesize);
+
+        if (CollectionUtils.isEmpty(pageResult.getItems())){
+            return CommonResult.success();
+        }
+        return CommonResult.success(pageResult);
     }
 
 

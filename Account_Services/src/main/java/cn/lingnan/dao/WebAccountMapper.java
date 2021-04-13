@@ -7,13 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface WebAccountMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(WebAccount record);
 
     int insertSelective(WebAccount record);
 
-    WebAccount selectByPrimaryKey(Integer id);
+    WebAccount selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(WebAccount record);
 
@@ -21,5 +21,7 @@ public interface WebAccountMapper {
 
     List<WebAccount> findByPhone(String phone);
 
-    List<WebAccount> findByName(String name);
+    List<WebAccount> findByName(String username);
+
+    List<WebAccount> findAll(String username);
 }

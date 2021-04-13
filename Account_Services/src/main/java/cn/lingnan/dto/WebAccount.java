@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 @ToString
 @Data
 public class WebAccount {
-    private Integer id;
+    private Long id;
 
     @NotNull(message = "用户账号不能为空")
     @Length(min = 6, max = 11, message = "账号长度必须是6-11个字符")

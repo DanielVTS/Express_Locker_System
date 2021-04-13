@@ -1,19 +1,20 @@
 package cn.lingnan.service;
 
 import cn.lingnan.dto.WebAccount;
+import cn.lingnan.util.PageResult;
 
 import java.util.List;
 
 public interface WebAccountService {
 
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(WebAccount record);
 
     int insertSelective(WebAccount record);
 
-    WebAccount selectByPrimaryKey(Integer id);
+    WebAccount selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(WebAccount record);
 
@@ -23,4 +24,5 @@ public interface WebAccountService {
 
     List<WebAccount> findByName(String name);
 
+    PageResult<WebAccount> findUserByPage(String query, Integer pagenum, Integer pagesize);
 }

@@ -37,6 +37,6 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
             }
         }
         // 将原本的数据包装在CommonResult里
-        return CommonResult.success(data);
+        return data;
     }
 }
