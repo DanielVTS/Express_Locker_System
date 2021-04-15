@@ -7,9 +7,9 @@ import lombok.Data;
 public class PackageBoxInformation {
     private Object pbiId;
 
-    private Integer packageId;
+    private Long packageId;
 
-    private Integer lockerId;
+    private Long lockerId;
 
     private Object lockerBoxId;
 

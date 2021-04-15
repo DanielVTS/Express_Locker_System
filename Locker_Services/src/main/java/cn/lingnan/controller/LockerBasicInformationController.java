@@ -4,6 +4,8 @@ package cn.lingnan.controller;
 import cn.lingnan.dto.LockerBasicInformation;
 import cn.lingnan.exception.APIException;
 import cn.lingnan.service.LockerBasicInformationService;
+import cn.lingnan.util.CommonResult;
+import cn.lingnan.util.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("lockerBasicInformation")
@@ -65,10 +68,29 @@ public class LockerBasicInformationController {
         }
     }
 
-    @PostMapping("getAllLocker")
+    @GetMapping("list")
     @ResponseBody
-    public List<LockerBasicInformation> queryAll() {
-        return this.lockerBasicInformationService.selectAll();
+    public CommonResult<PageResult<LockerBasicInformation>> queryLocker(
+            @RequestParam(name = "query", required = false) String query,
+            @RequestParam(name = "pagenum", defaultValue = "1") Integer pageNum,
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pageSize) {
+        Long id;
+        if (pageNum <= 0 || pageSize <= 0) {
+            return CommonResult.failed("参数有误！");
+        }
+        if (query.length() == 18) {
+            try {
+                id = Long.parseLong(query);
+                List<LockerBasicInformation> list = new ArrayList<>();
+                list.add(lockerBasicInformationService.selectByPrimaryKey(id));
+                PageResult<LockerBasicInformation> pageResult = new PageResult<>(1L, 1, list);
+                return CommonResult.success(pageResult);
+            } catch (NumberFormatException ignored) {
+
+            }
+        }
+        PageResult<LockerBasicInformation> pageResult = this.lockerBasicInformationService.findLockerByPage(query, pageNum, pageSize);
+        return CommonResult.success(pageResult);
     }
 
 

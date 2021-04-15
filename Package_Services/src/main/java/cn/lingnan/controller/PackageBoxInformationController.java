@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -57,13 +54,27 @@ public class PackageBoxInformationController {
 
     @PostMapping("findByPackageId")
     @ResponseBody
-    public Object findByPackageId(Long packageId) {
+    public Object findByPackageId(@RequestParam Long packageId) {
         logger.info("快递号查找Package ==>" + packageId);
         PackageBoxInformation record = packageBoxInformationService.findByPackageId(packageId);
-        if (record.getPbiId() != null && record.getPbiId() != "") {
+
+        if (record!=null) {
             return record;
         } else {
             return "查无记录！";
         }
+    }
+
+    @GetMapping("findByCode")
+    @ResponseBody
+    public Object findByCode(@RequestParam String code){
+        logger.info("Code查找Package ==>" + code);
+        PackageBoxInformation record=packageBoxInformationService.findByCode(code);
+        if (record!=null) {
+            return record;
+        } else {
+            return "查无记录！";
+        }
+
     }
 }

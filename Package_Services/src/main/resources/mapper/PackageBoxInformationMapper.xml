@@ -3,7 +3,7 @@
 <mapper namespace="cn.lingnan.dao.PackageBoxInformationMapper">
   <resultMap id="BaseResultMap" type="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    <!--@Table package_box_information-->
+    <!--@Table els_package.package_box_information-->
     <id column="pbi_id" jdbcType="OTHER" property="pbiId"/>
     <result column="package_id" jdbcType="BIGINT" property="packageId"/>
     <result column="locker_id" jdbcType="BIGINT" property="lockerId"/>
@@ -25,17 +25,17 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from package_box_information
+    from els_package.package_box_information
     where pbi_id = #{pbiId,jdbcType=OTHER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
     <!--@mbg.generated-->
-    delete from package_box_information
+    delete from els_package.package_box_information
     where pbi_id = #{pbiId,jdbcType=OTHER}
   </delete>
   <insert id="insert" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    insert into package_box_information (pbi_id, package_id, locker_id,
+    insert into els_package.package_box_information (pbi_id, package_id, locker_id,
     locker_box_id, package_code, operator_id,
     create_time, update_time, status_time,
     "status", remark)
@@ -46,7 +46,7 @@
   </insert>
   <insert id="insertSelective" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    insert into package_box_information
+    insert into els_package.package_box_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pbiId != null">
         pbi_id,
@@ -120,7 +120,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    update package_box_information
+    update els_package.package_box_information
     <set>
       <if test="packageId != null">
         package_id = #{packageId,jdbcType=BIGINT},
@@ -157,7 +157,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.PackageBoxInformation">
     <!--@mbg.generated-->
-    update package_box_information
+    update els_package.package_box_information
     set package_id = #{packageId,jdbcType=BIGINT},
     locker_id = #{lockerId,jdbcType=BIGINT},
     locker_box_id = #{lockerBoxId,jdbcType=OTHER},
@@ -173,7 +173,13 @@
   <select id="findByPackageId" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from package_box_information
+    from els_package.package_box_information
     where package_id= #{packageId,jdbcType=BIGINT}
+  </select>
+  <select id="findByCode" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from els_package.package_box_information
+    where package_code= #{packageCode,jdbcType=VARCHAR} and status=0
   </select>
 </mapper>

@@ -28,6 +28,9 @@ public class WebAccountController {
 
     @PostMapping("register")
     public CommonResult<Object> register(@RequestBody @Validated WebAccount webAccount) {
+        if(webAccountService.findByPhone(webAccount.getPhone())!=null){
+            return CommonResult.phone_failed();
+        }
         Calendar a = Calendar.getInstance();
         webAccount.setCreateTime(a.getTime());
         webAccount.setUpdateTime(a.getTime());
@@ -42,14 +45,14 @@ public class WebAccountController {
 
     @PostMapping("login")
     public CommonResult<Object> login(@RequestBody Map<String, String> map) {
-        String username=null,password=null;
+        String username,password;
         if(map.containsKey("username")){
-            username = map.get("username").toString();
+            username = map.get("username");
         }else{
             return CommonResult.failed();
         }
         if(map.containsKey("password")){
-            password = map.get("password").toString();
+            password = map.get("password");
         }else{
             return CommonResult.failed();
         }
@@ -67,7 +70,7 @@ public class WebAccountController {
         }
         if (account != null) {
             logger.info(account.toString());
-            return CommonResult.success();
+            return CommonResult.success(account);
         } else return CommonResult.validateFailed("用户名或密码错误！");
     }
 

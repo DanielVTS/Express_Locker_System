@@ -4,6 +4,7 @@ CREATE TABLE els_locker.LOCKER_BASIC_INFORMATION
     LOCKER_ID   INT DEFAULT UNIQUE_ROWID() PRIMARY KEY ,
     PROVINCE    VARCHAR(20),
     CITY        VARCHAR(20),
+    LOCKER_NAME VARCHAR(200),
     TOTAL_BOX   INT,
     USED_BOX    INT,
     CREATE_TIME TIMESTAMPTZ(0),
@@ -17,6 +18,7 @@ CREATE TABLE els_locker.LOCKER_BASIC_INFORMATION
 INSERT INTO els_locker.LOCKER_BASIC_INFORMATION(
                                      PROVINCE,
                                      CITY,
+                                     LOCKER_NAME,
                                      TOTAL_BOX,
                                      USED_BOX,
                                      CREATE_TIME,
@@ -28,6 +30,7 @@ INSERT INTO els_locker.LOCKER_BASIC_INFORMATION(
 ) VALUES (
           '广东省',
           '湛江市',
+          '测试快递柜1',
           16,
           0,
           localtimestamp(),

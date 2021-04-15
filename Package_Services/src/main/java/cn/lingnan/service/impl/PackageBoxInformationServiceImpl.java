@@ -46,4 +46,9 @@ public class PackageBoxInformationServiceImpl implements PackageBoxInformationSe
     public PackageBoxInformation findByPackageId(Long packageId) {
         return packageBoxInformationMapper.findByPackageId(packageId);
     }
+
+    @Override
+    public PackageBoxInformation findByCode(String packageCode){
+        return packageBoxInformationMapper.findByCode(packageCode);
+    }
 }

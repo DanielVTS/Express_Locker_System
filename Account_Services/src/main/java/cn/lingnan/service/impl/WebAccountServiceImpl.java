@@ -57,6 +57,7 @@ public class WebAccountServiceImpl implements WebAccountService {
         return webAccountMapper.findByName(name);
     }
 
+    @Override
     public PageResult<WebAccount> findUserByPage(String query, Integer pagenum, Integer pagesize){
         PageHelper.startPage(pagenum, pagesize);
         if(query==null) {

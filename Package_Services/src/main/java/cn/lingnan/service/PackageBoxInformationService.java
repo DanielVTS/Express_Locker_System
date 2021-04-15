@@ -18,4 +18,7 @@ public interface PackageBoxInformationService{
 
     PackageBoxInformation findByPackageId(Long packageId);
 
+    PackageBoxInformation findByCode(String packageCode);
+
+
 }

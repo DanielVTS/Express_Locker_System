@@ -1,8 +1,7 @@
 package cn.lingnan.dto;
 
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class LockerBasicInformation {
@@ -11,6 +10,8 @@ public class LockerBasicInformation {
     private String province;
 
     private String city;
+
+    private String lockerName;
 
     private Integer totalBox;
 
