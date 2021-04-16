@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @RequestMapping("account")
 @RestController
+@CrossOrigin
 public class WebAccountController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
@@ -70,6 +72,10 @@ public class WebAccountController {
         }
         if (account != null) {
             logger.info(account.toString());
+            WebAccount update= new WebAccount();
+            update.setId(account.getId());
+            update.setStatusTime(new Date(System.currentTimeMillis()));
+            webAccountService.updateByPrimaryKeySelective(update);
             return CommonResult.success(account);
         } else return CommonResult.validateFailed("用户名或密码错误！");
     }
@@ -91,5 +97,40 @@ public class WebAccountController {
         return CommonResult.success(pageResult);
     }
 
+    @PutMapping("update")
+
+    //public CommonResult<Object> update(@RequestBody Map<String, String> map) {
+    public CommonResult<Object> update(@RequestBody WebAccount webAccount) {
+        //WebAccount webAccount = null;
+        if(webAccount.getId()==null){
+            return CommonResult.failed();
+        }
+        if(!webAccountService.findByPhone(webAccount.getPhone()).isEmpty()){
+            return CommonResult.phone_failed();
+        }
+        Calendar a = Calendar.getInstance();
+        webAccount.setUpdateTime(a.getTime());
+        a.add(Calendar.YEAR, 5);
+        webAccount.setExpTime(a.getTime());
+        int result = webAccountService.updateByPrimaryKeySelective(webAccount);
+        if (result == 1) {
+            return CommonResult.success();
+        } else throw new APIException(500, "WebAccount记录插入异常！");
+    }
+
+    @DeleteMapping("delete/{id}")
+    public CommonResult<Object> delete(@PathVariable(name = "id", required = true) String id){
+        int result=0;
+        try {
+            result=webAccountService.deleteByPrimaryKey(Long.parseLong(id));
+        }catch (NumberFormatException e){
+            return CommonResult.failed("ID格式有误！");
+        }
+        if(result==0){
+            return CommonResult.failed();
+        }else {
+            return CommonResult.success();
+        }
+    }
 
 }

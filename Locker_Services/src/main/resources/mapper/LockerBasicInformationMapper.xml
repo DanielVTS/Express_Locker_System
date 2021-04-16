@@ -22,7 +22,7 @@
     locker_id, province, city, locker_name, total_box, used_box, create_time, update_time, 
     status_time, row_num, column_num, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />

@@ -4,17 +4,17 @@ import java.util.Date;
 
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
-@Getter
-@Setter
-@ToString
 @Data
 public class WebAccount {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @NotNull(message = "用户账号不能为空")

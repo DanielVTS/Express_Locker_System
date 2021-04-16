@@ -1,10 +1,14 @@
 package cn.lingnan.dto;
 
 import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
 public class LockerBasicInformation {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long lockerId;
 
     private String province;
