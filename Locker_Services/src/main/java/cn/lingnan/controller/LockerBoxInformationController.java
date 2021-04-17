@@ -3,25 +3,74 @@ package cn.lingnan.controller;
 import cn.lingnan.dto.LockerBoxInformation;
 import cn.lingnan.exception.APIException;
 import cn.lingnan.service.LockerBoxInformationService;
+import cn.lingnan.util.CommonResult;
+import cn.lingnan.util.PageResult;
+import cn.lingnan.util.UUIDCheck;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("lockerBoxInformation")
 @Controller
+@CrossOrigin(originPatterns = {"danielvt.xyz", "localhost", "127.0.0.1"})
 public class LockerBoxInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBoxInformationService.class);
     @Resource
     private LockerBoxInformationService lockerBoxInformationService;
 
+    @PostMapping("addLockerBoxRow")
+    @ResponseBody
+    public CommonResult<Object> AddLockerBoxRow(@RequestBody Map<String, String> map) {
+        try {
+            Long lockerId = Long.valueOf(map.get("lockerId"));
+            int row = Integer.parseInt(map.get("row"));
+            int column = Integer.parseInt(map.get("column"));
+            int boxType = Integer.parseInt(map.get("boxType"));
+            List<LockerBoxInformation> list = lockerBoxInformationService.findBoxListInOneLocker(lockerId);
+            for (LockerBoxInformation t : list) {
+                if (t.getLockerRow() == row) {
+                    throw new APIException("此快递柜该行已有数据");
+                }
+            }
+            LockerBoxInformation a = new LockerBoxInformation();
+            Date date = new Date(System.currentTimeMillis());
+            a.setLockerId(lockerId);
+            a.setLockerRow(row);
+            a.setBoxType(boxType);
+            a.setDoorStatus(1);
+            a.setBoxIsEmpty(1);
+            a.setStatus(1);
+            a.setCreateTime(date);
+            a.setUpdateTime(date);
+            a.setStatusTime(date);
+            for (int i = 1; i <= column; i++) {
+                a.setLockerColumn(i);
+                if (lockerBoxInformationService.insert(a) != 1) {
+                    throw new APIException("Box记录插入异常");
+                }
+            }
+        } catch (NullPointerException e) {
+            return CommonResult.failed("参数缺失！");
+        } catch (NumberFormatException e) {
+            return CommonResult.failed("参数有误！");
+        } catch (APIException e) {
+            return CommonResult.failed(e.getMessage());
+        }
+        return CommonResult.success();
+    }
+
+
+    @Deprecated
     @PostMapping("addLockerBox")
     @ResponseBody
-    public String AddLockerBox(@RequestBody @Validated LockerBoxInformation record) {
+    public String AddLockerBox(@RequestBody LockerBoxInformation record) {
         logger.info("添加LockerBox ==>" + record.toString());
         int result = lockerBoxInformationService.insert(record);
         if (result != 1) {
@@ -30,37 +79,56 @@ public class LockerBoxInformationController {
         return "Box记录插入成功！";
     }
 
-    @PostMapping("removeLockerBox")
+    @DeleteMapping("removeLockerBox/{id}")
     @ResponseBody
-    public String RemoveLockerBox(@RequestBody @Validated LockerBoxInformation record) {
-        logger.info("删除Locker ==>" + record.toString());
-        int result = lockerBoxInformationService.deleteByPrimaryKey(record.getLockerId());
+    public CommonResult<Object> RemoveLockerBox(@PathVariable(name = "id") String id) {
+        logger.info("删除Locker ==>" + id);
+        int result = lockerBoxInformationService.deleteByPrimaryKey(id);
         if (result != 1) {
             throw new APIException(500, "Box记录删除异常！");
         }
-        return "Box记录删除成功！";
+        return CommonResult.success();
     }
 
-    @PostMapping("editLockerBox")
+    @PutMapping("editLockerBox")
     @ResponseBody
-    public String EditLockerBox(@RequestBody @Validated LockerBoxInformation record) {
-        logger.info("修改Locker ==>" + record.toString());
+    public CommonResult<Object> EditLockerBox(@RequestBody LockerBoxInformation record) {
+        if (record.getLockerBoxId() == null) {
+            return CommonResult.failed("Box记录id空！");
+        }
+        logger.info("修改Locker ==>" + record);
         int result = lockerBoxInformationService.updateByPrimaryKey(record);
         if (result != 1) {
             throw new APIException(500, "Box记录修改异常！");
         }
-        return "Box记录修改成功！";
+        return CommonResult.success();
     }
 
-    @GetMapping("findBoxListInOneLocker")
+    /**
+     * @param query    Locker ID模糊搜索，为空则列出全表
+     * @param pagenum
+     * @param pagesize
+     * @return
+     */
+    @GetMapping("listBox")
     @ResponseBody
-    public Object FindBoxListInOneLocker(String lockerId) {
-        logger.info("ID查找Locker ==>ID: " + lockerId);
-        List<LockerBoxInformation> record = lockerBoxInformationService.findBoxListInOneLocker(Long.parseLong(lockerId));
-        if (!record.isEmpty()) {
-            return record;
+    public CommonResult<PageResult<LockerBoxInformation>> FindBoxList(
+            @RequestParam(name = "query", required = false) String query,
+            @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize) {
+        if (query == null || !UUIDCheck.isValidUUID(query)) {
+            return CommonResult.success(lockerBoxInformationService.findBoxByPage(query, pagenum, pagesize));
         } else {
-            return "查无记录！";
+            List<LockerBoxInformation> list = new ArrayList<>();
+            LockerBoxInformation b = lockerBoxInformationService.selectByPrimaryKey(query);
+            if (b.getLockerBoxId() == null) {
+                return CommonResult.success(new PageResult<>(1L, 0, null));
+            } else {
+                list.add(b);
+                return CommonResult.success(new PageResult<>(1L, 1, list));
+            }
+
         }
+
     }
 }

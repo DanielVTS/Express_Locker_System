@@ -20,15 +20,15 @@ import java.util.Map;
 
 @RequestMapping("account")
 @RestController
-@CrossOrigin
+@CrossOrigin(originPatterns = {"danielvt.xyz", "localhost", "127.0.0.1"})
 public class WebAccountController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private WebAccountService webAccountService;
 
     @PostMapping("register")
-    public CommonResult<Object> register(@RequestBody  WebAccount webAccount) {
-        if(webAccountService.findByPhone(webAccount.getPhone()).size()>0){
+    public CommonResult<Object> register(@RequestBody WebAccount webAccount) {
+        if (webAccountService.findByPhone(webAccount.getPhone()).size() > 0) {
             return CommonResult.phone_failed();
         }
         Calendar a = Calendar.getInstance();
@@ -46,15 +46,15 @@ public class WebAccountController {
 
     @PostMapping("login")
     public CommonResult<Object> login(@RequestBody Map<String, String> map) {
-        String username,password;
-        if(map.containsKey("username")){
+        String username, password;
+        if (map.containsKey("username")) {
             username = map.get("username");
-        }else{
+        } else {
             return CommonResult.failed();
         }
-        if(map.containsKey("password")){
+        if (map.containsKey("password")) {
             password = map.get("password");
-        }else{
+        } else {
             return CommonResult.failed();
         }
         List<WebAccount> result;
@@ -71,7 +71,7 @@ public class WebAccountController {
         }
         if (account != null) {
             logger.info(account.toString());
-            WebAccount update= new WebAccount();
+            WebAccount update = new WebAccount();
             update.setId(account.getId());
             update.setStatusTime(new Date(System.currentTimeMillis()));
             webAccountService.updateByPrimaryKeySelective(update);
@@ -83,14 +83,14 @@ public class WebAccountController {
     public CommonResult<Object> queryUserByPage(
             @RequestParam(name = "query", required = false) String query,
             @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
-            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize){
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize) {
 
         if (pagenum <= 0 || pagesize <= 0) {
             return CommonResult.failed("参数有误！");
         }
-        PageResult<WebAccount> pageResult=webAccountService.findUserByPage(query,pagenum,pagesize);
+        PageResult<WebAccount> pageResult = webAccountService.findUserByPage(query, pagenum, pagesize);
 
-        if (CollectionUtils.isEmpty(pageResult.getItems())){
+        if (CollectionUtils.isEmpty(pageResult.getItems())) {
             return CommonResult.success();
         }
         return CommonResult.success(pageResult);
@@ -100,10 +100,10 @@ public class WebAccountController {
     //public CommonResult<Object> update(@RequestBody Map<String, String> map) {
     public CommonResult<Object> update(@RequestBody WebAccount webAccount) {
         //WebAccount webAccount = null;
-        if(webAccount.getId()==null){
+        if (webAccount.getId() == null) {
             return CommonResult.failed();
         }
-        if(!webAccountService.findByPhone(webAccount.getPhone()).isEmpty()){
+        if (!webAccountService.findByPhone(webAccount.getPhone()).isEmpty()) {
             return CommonResult.phone_failed();
         }
         Calendar a = Calendar.getInstance();
@@ -120,11 +120,11 @@ public class WebAccountController {
     public CommonResult<Object> updatePassword(@RequestBody Map<String, String> map) {
         WebAccount webAccount = new WebAccount();
         webAccount.setId(Long.valueOf(map.get("id")));
-        if(webAccountService.selectByPrimaryKey(
+        if (webAccountService.selectByPrimaryKey(
                 webAccount.getId()).
-                getPassword().equals(map.get("password1"))){
+                getPassword().equals(map.get("password1"))) {
             webAccount.setPassword(map.get("password2"));
-            if(webAccount.getId()==null){
+            if (webAccount.getId() == null) {
                 return CommonResult.failed();
             }
             Calendar a = Calendar.getInstance();
@@ -135,22 +135,22 @@ public class WebAccountController {
             if (result == 1) {
                 return CommonResult.success();
             } else throw new APIException(500, "WebAccount记录插入异常！");
-        }else{
+        } else {
             return CommonResult.failed();
         }
     }
 
     @DeleteMapping("delete/{id}")
-    public CommonResult<Object> delete(@PathVariable(name = "id", required = true) String id){
-        int result=0;
+    public CommonResult<Object> delete(@PathVariable(name = "id", required = true) String id) {
+        int result;
         try {
-            result=webAccountService.deleteByPrimaryKey(Long.parseLong(id));
-        }catch (NumberFormatException e){
+            result = webAccountService.deleteByPrimaryKey(Long.parseLong(id));
+        } catch (NumberFormatException e) {
             return CommonResult.failed("ID格式有误！");
         }
-        if(result==0){
+        if (result == 0) {
             return CommonResult.failed();
-        }else {
+        } else {
             return CommonResult.success();
         }
     }

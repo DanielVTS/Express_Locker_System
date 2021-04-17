@@ -3,6 +3,8 @@ package cn.lingnan.dao;
 import cn.lingnan.dto.PackageBoxInformation;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PackageBoxInformationMapper {
     int deleteByPrimaryKey(Object pbiId);
@@ -19,6 +21,8 @@ public interface PackageBoxInformationMapper {
 
     PackageBoxInformation findByPackageId(Long packageId);
 
-    PackageBoxInformation findByCode(String packageCode);
+    PackageBoxInformation findByCode(String code);
+
+    List<PackageBoxInformation> findByPage(String packageCode);
 
 }

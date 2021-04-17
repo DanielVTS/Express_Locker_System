@@ -1,247 +1,253 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.lingnan.dao.PackageInformationMapper">
-  <resultMap id="BaseResultMap" type="cn.lingnan.dto.PackageInformation">
-    <!--@mbg.generated-->
-    <!--@Table els_package.package_information-->
-    <id column="package_id" jdbcType="BIGINT" property="packageId" />
-    <result column="express_number" jdbcType="VARCHAR" property="expressNumber" />
-    <result column="express_company" jdbcType="INTEGER" property="expressCompany" />
-    <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone" />
-    <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress" />
-    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
-    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
-    <result column="sender_phone" jdbcType="VARCHAR" property="senderPhone" />
-    <result column="sender_address" jdbcType="VARCHAR" property="senderAddress" />
-    <result column="exp_operator_id" jdbcType="INTEGER" property="expOperatorId" />
-    <result column="exp_operator_phone" jdbcType="VARCHAR" property="expOperatorPhone" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    package_id, express_number, express_company, receiver_phone, receiver_address, receiver_name, 
-    sender_name, sender_phone, sender_address, exp_operator_id, exp_operator_phone, create_time, 
-    update_time, status_time, "status", remark
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from els_package.package_information
-    where package_id = #{packageId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
-    <!--@mbg.generated-->
-    delete from els_package.package_information
-    where package_id = #{packageId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.lingnan.dto.PackageInformation">
-    <!--@mbg.generated-->
-    insert into els_package.package_information (package_id, express_number, express_company, 
-      receiver_phone, receiver_address, receiver_name, 
-      sender_name, sender_phone, sender_address, 
-      exp_operator_id, exp_operator_phone, create_time, 
-      update_time, status_time, "status", 
-      remark)
-    values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=VARCHAR}, #{expressCompany,jdbcType=INTEGER},
-      #{receiverPhone,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
-      #{senderName,jdbcType=VARCHAR}, #{senderPhone,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR}, 
-      #{expOperatorId,jdbcType=INTEGER}, #{expOperatorPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.lingnan.dto.PackageInformation">
-    <!--@mbg.generated-->
-    insert into els_package.package_information
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="packageId != null">
-        package_id,
-      </if>
-      <if test="expressNumber != null">
-        express_number,
-      </if>
-      <if test="expressCompany != null">
-        express_company,
-      </if>
-      <if test="receiverPhone != null">
-        receiver_phone,
-      </if>
-      <if test="receiverAddress != null">
-        receiver_address,
-      </if>
-      <if test="receiverName != null">
-        receiver_name,
-      </if>
-      <if test="senderName != null">
-        sender_name,
-      </if>
-      <if test="senderPhone != null">
-        sender_phone,
-      </if>
-      <if test="senderAddress != null">
-        sender_address,
-      </if>
-      <if test="expOperatorId != null">
-        exp_operator_id,
-      </if>
-      <if test="expOperatorPhone != null">
-        exp_operator_phone,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="statusTime != null">
-        status_time,
-      </if>
-      <if test="status != null">
-        "status",
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="packageId != null">
-        #{packageId,jdbcType=BIGINT},
-      </if>
-      <if test="expressNumber != null">
-        #{expressNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="expressCompany != null">
-        #{expressCompany,jdbcType=INTEGER},
-      </if>
-      <if test="receiverPhone != null">
-        #{receiverPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverAddress != null">
-        #{receiverAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverName != null">
-        #{receiverName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderName != null">
-        #{senderName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderPhone != null">
-        #{senderPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="senderAddress != null">
-        #{senderAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="expOperatorId != null">
-        #{expOperatorId,jdbcType=INTEGER},
-      </if>
-      <if test="expOperatorPhone != null">
-        #{expOperatorPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="statusTime != null">
-        #{statusTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.PackageInformation">
-    <!--@mbg.generated-->
-    update els_package.package_information
-    <set>
-      <if test="expressNumber != null">
-        express_number = #{expressNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="expressCompany != null">
+    <resultMap id="BaseResultMap" type="cn.lingnan.dto.PackageInformation">
+        <!--@mbg.generated-->
+        <!--@Table els_package.package_information-->
+        <id column="package_id" jdbcType="BIGINT" property="packageId"/>
+        <result column="express_number" jdbcType="VARCHAR" property="expressNumber"/>
+        <result column="express_company" jdbcType="INTEGER" property="expressCompany"/>
+        <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone"/>
+        <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress"/>
+        <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
+        <result column="sender_name" jdbcType="VARCHAR" property="senderName"/>
+        <result column="sender_phone" jdbcType="VARCHAR" property="senderPhone"/>
+        <result column="sender_address" jdbcType="VARCHAR" property="senderAddress"/>
+        <result column="exp_operator_id" jdbcType="INTEGER" property="expOperatorId"/>
+        <result column="exp_operator_phone" jdbcType="VARCHAR" property="expOperatorPhone"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="status_time" jdbcType="TIMESTAMP" property="statusTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        package_id, express_number, express_company, receiver_phone, receiver_address, receiver_name,
+        sender_name, sender_phone, sender_address, exp_operator_id, exp_operator_phone, create_time,
+        update_time, status_time, "status", remark
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Object" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from els_package.package_information
+        where package_id = #{packageId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Object">
+        <!--@mbg.generated-->
+        delete from els_package.package_information
+        where package_id = #{packageId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.lingnan.dto.PackageInformation">
+        <!--@mbg.generated-->
+        insert into els_package.package_information (package_id, express_number, express_company,
+        receiver_phone, receiver_address, receiver_name,
+        sender_name, sender_phone, sender_address,
+        exp_operator_id, exp_operator_phone, create_time,
+        update_time, status_time, "status",
+        remark)
+        values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=VARCHAR}, #{expressCompany,jdbcType=INTEGER},
+        #{receiverPhone,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR},
+        #{senderName,jdbcType=VARCHAR}, #{senderPhone,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR},
+        #{expOperatorId,jdbcType=INTEGER}, #{expOperatorPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
+        #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.lingnan.dto.PackageInformation">
+        <!--@mbg.generated-->
+        insert into els_package.package_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="packageId != null">
+                package_id,
+            </if>
+            <if test="expressNumber != null">
+                express_number,
+            </if>
+            <if test="expressCompany != null">
+                express_company,
+            </if>
+            <if test="receiverPhone != null">
+                receiver_phone,
+            </if>
+            <if test="receiverAddress != null">
+                receiver_address,
+            </if>
+            <if test="receiverName != null">
+                receiver_name,
+            </if>
+            <if test="senderName != null">
+                sender_name,
+            </if>
+            <if test="senderPhone != null">
+                sender_phone,
+            </if>
+            <if test="senderAddress != null">
+                sender_address,
+            </if>
+            <if test="expOperatorId != null">
+                exp_operator_id,
+            </if>
+            <if test="expOperatorPhone != null">
+                exp_operator_phone,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="statusTime != null">
+                status_time,
+            </if>
+            <if test="status != null">
+                "status",
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="packageId != null">
+                #{packageId,jdbcType=BIGINT},
+            </if>
+            <if test="expressNumber != null">
+                #{expressNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expressCompany != null">
+                #{expressCompany,jdbcType=INTEGER},
+            </if>
+            <if test="receiverPhone != null">
+                #{receiverPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverAddress != null">
+                #{receiverAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="senderName != null">
+                #{senderName,jdbcType=VARCHAR},
+            </if>
+            <if test="senderPhone != null">
+                #{senderPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="senderAddress != null">
+                #{senderAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="expOperatorId != null">
+                #{expOperatorId,jdbcType=INTEGER},
+            </if>
+            <if test="expOperatorPhone != null">
+                #{expOperatorPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusTime != null">
+                #{statusTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.PackageInformation">
+        <!--@mbg.generated-->
+        update els_package.package_information
+        <set>
+            <if test="expressNumber != null">
+                express_number = #{expressNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expressCompany != null">
+                express_company = #{expressCompany,jdbcType=INTEGER},
+            </if>
+            <if test="receiverPhone != null">
+                receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverAddress != null">
+                receiver_address = #{receiverAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="receiverName != null">
+                receiver_name = #{receiverName,jdbcType=VARCHAR},
+            </if>
+            <if test="senderName != null">
+                sender_name = #{senderName,jdbcType=VARCHAR},
+            </if>
+            <if test="senderPhone != null">
+                sender_phone = #{senderPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="senderAddress != null">
+                sender_address = #{senderAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="expOperatorId != null">
+                exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
+            </if>
+            <if test="expOperatorPhone != null">
+                exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusTime != null">
+                status_time = #{statusTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                "status" = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where package_id = #{packageId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.PackageInformation">
+        <!--@mbg.generated-->
+        update els_package.package_information
+        set express_number = #{expressNumber,jdbcType=VARCHAR},
         express_company = #{expressCompany,jdbcType=INTEGER},
-      </if>
-      <if test="receiverPhone != null">
         receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverAddress != null">
         receiver_address = #{receiverAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverName != null">
         receiver_name = #{receiverName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderName != null">
         sender_name = #{senderName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderPhone != null">
         sender_phone = #{senderPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="senderAddress != null">
         sender_address = #{senderAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="expOperatorId != null">
         exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
-      </if>
-      <if test="expOperatorPhone != null">
         exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
         "status" = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where package_id = #{packageId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.PackageInformation">
-    <!--@mbg.generated-->
-    update els_package.package_information
-    set express_number = #{expressNumber,jdbcType=VARCHAR},
-      express_company = #{expressCompany,jdbcType=INTEGER},
-      receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
-      receiver_address = #{receiverAddress,jdbcType=VARCHAR},
-      receiver_name = #{receiverName,jdbcType=VARCHAR},
-      sender_name = #{senderName,jdbcType=VARCHAR},
-      sender_phone = #{senderPhone,jdbcType=VARCHAR},
-      sender_address = #{senderAddress,jdbcType=VARCHAR},
-      exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
-      exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      "status" = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where package_id = #{packageId,jdbcType=BIGINT}
-  </update>
+        remark = #{remark,jdbcType=VARCHAR}
+        where package_id = #{packageId,jdbcType=BIGINT}
+    </update>
 
-  <select id="findByExpressNumber" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from els_package.package_information
-    where express_number = #{express_number,jdbcType=VARCHAR}
-  </select>
+    <select id="findByExpressNumber" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from els_package.package_information
+        where express_number = #{express_number,jdbcType=VARCHAR}
+    </select>
 
-  <select id="findPackageByPage" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from els_package.package_information
-    where express_number like #{express_number,jdbcType=VARCHAR}
-  </select>
+    <select id="findPackageByPackageId" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from els_package.package_information
+        where express_number like #{query,jdbcType=VARCHAR}
+    </select>
+    <select id="findPackageByPhone" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from els_package.package_information
+        where receiver_phone like #{query,jdbcType=VARCHAR}
+    </select>
 </mapper>

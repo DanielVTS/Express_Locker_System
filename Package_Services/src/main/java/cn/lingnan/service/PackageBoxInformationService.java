@@ -1,7 +1,9 @@
 package cn.lingnan.service;
 
 import cn.lingnan.dto.PackageBoxInformation;
-public interface PackageBoxInformationService{
+import cn.lingnan.util.PageResult;
+
+public interface PackageBoxInformationService {
 
 
     int deleteByPrimaryKey(Object pbiId);
@@ -18,7 +20,9 @@ public interface PackageBoxInformationService{
 
     PackageBoxInformation findByPackageId(Long packageId);
 
-    PackageBoxInformation findByCode(String packageCode);
+    PackageBoxInformation findByCode(String code);
+
+    PageResult<PackageBoxInformation> findByPage(String query, Integer pagenum, Integer pagesize);
 
 
 }

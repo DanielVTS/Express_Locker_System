@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,7 +22,7 @@ import java.util.Map;
 
 @RequestMapping("packageInformation")
 @Controller
-@CrossOrigin
+@CrossOrigin(originPatterns = {"danielvt.xyz", "localhost", "127.0.0.1"})
 public class PackageInformationController {
     @Resource
     private PackageInformationService packageInformationService;
@@ -34,7 +33,7 @@ public class PackageInformationController {
 
     @PostMapping("addPackage")
     @ResponseBody
-    public String AddPackageInformation(@RequestBody  PackageInformation record) {
+    public String AddPackageInformation(@RequestBody PackageInformation record) {
         logger.info("添加PackageInformation ==>" + record.toString());
         int result = packageInformationService.insertSelective(record);
         if (result != 1) {
@@ -45,7 +44,7 @@ public class PackageInformationController {
 
     @PostMapping("removePackage")
     @ResponseBody
-    public String RemovePackageInformation(@RequestBody  PackageInformation record) {
+    public String RemovePackageInformation(@RequestBody PackageInformation record) {
         logger.info("删除PackageInformation ==>" + record.toString());
         int result = packageInformationService.deleteByPrimaryKey(record.getPackageId());
         if (result != 1) {
@@ -56,8 +55,13 @@ public class PackageInformationController {
 
     @PostMapping("editPackage")
     @ResponseBody
-    public String EditPackageInformation(@RequestBody  PackageInformation record) {
-        logger.info("修改PackageInformation ==>" + record.toString());
+    public String EditPackageInformation(@RequestBody PackageInformation record) {
+        Date now = new Date(System.currentTimeMillis());
+        record.setUpdateTime(now);
+        if (record.getStatus() == 5) {
+            record.setStatusTime(now);
+        }
+        logger.info("修改PackageInformation ==>" + record);
         int result = packageInformationService.updateByPrimaryKey(record);
         if (result != 1) {
             throw new APIException(500, "PackageInformation记录修改异常！");
@@ -84,69 +88,73 @@ public class PackageInformationController {
         String lockerID;
         String lockerBoxID;
         long randomNum;
-        if(map.containsKey("lockerID")){
+        if (map.containsKey("lockerID")) {
             lockerID = map.get("lockerID").toString();
             map.remove("lockerID");
-        }else{
+        } else {
             return CommonResult.failed();
         }
-        if(map.containsKey("lockerBoxID")){
+        if (map.containsKey("lockerBoxID")) {
             lockerBoxID = map.get("lockerBoxID").toString();
             map.remove("lockerBoxID");
-        }else{
+        } else {
             return CommonResult.failed();
         }
-        PackageInformation record= (PackageInformation) MapToBean.transMap2Bean(map,new PackageInformation());
+        PackageInformation record = (PackageInformation) MapToBean.transMap2Bean(map, new PackageInformation());
         logger.info("添加PackageInformation ==>" + record);
         int result = packageInformationService.insertSelective(record);
         if (result != 1) {
             throw new APIException(500, "PackageInformation记录插入异常！");
         }
-        List<PackageInformation> list=packageInformationService.findByExpressNumber(record.getExpressNumber());
+        List<PackageInformation> list = packageInformationService.findByExpressNumber(record.getExpressNumber());
         PackageInformation result2 = null;
-        for(PackageInformation i: list){
-            if (i.getSenderPhone().equals(record.getSenderPhone())&&i.getReceiverPhone().equals(record.getReceiverPhone())){
-                result2=i;
+        for (PackageInformation i : list) {
+            if (i.getSenderPhone().equals(record.getSenderPhone()) && i.getReceiverPhone().equals(record.getReceiverPhone())) {
+                result2 = i;
             }
         }
-        if (result2!=null){
-            PackageBoxInformation packageBoxInformation=new PackageBoxInformation();
+        if (result2 != null) {
+            PackageBoxInformation packageBoxInformation = new PackageBoxInformation();
             packageBoxInformation.setPackageId(result2.getPackageId());
             packageBoxInformation.setLockerId(Long.parseLong(lockerID));
             packageBoxInformation.setLockerBoxId(lockerBoxID);
-            while(true){
+            while (true) {
                 randomNum = System.currentTimeMillis();
-                int ran3 = (int) (randomNum%(99999999-10000000)+10000000);
-                PackageBoxInformation pbi=packageBoxInformationService.findByCode(Integer.toString(ran3));
-                if(pbi==null){
+                int ran3 = (int) (randomNum % (99999999 - 10000000) + 10000000);
+                PackageBoxInformation pbi = packageBoxInformationService.findByCode(Integer.toString(ran3));
+                if (pbi == null) {
                     packageBoxInformation.setPackageCode(Integer.toString(ran3));
                     break;
                 }
             }
-            Date date=new Date(randomNum);
+            Date date = new Date(randomNum);
             packageBoxInformation.setCreateTime(date);
             packageBoxInformation.setUpdateTime(date);
             packageBoxInformation.setStatusTime(date);
             packageBoxInformation.setStatus(0);
             packageBoxInformationService.insertSelective(packageBoxInformation);
             return CommonResult.success();
-        }
-        else return CommonResult.failed();
+        } else return CommonResult.failed();
     }
 
+    /**
+     * @param query    快递号、手机号模糊查找
+     * @param pagenum
+     * @param pagesize
+     * @return
+     */
     @GetMapping("list")
     public CommonResult<Object> findPackageByPage(
             @RequestParam(name = "query", required = false) String query,
             @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
-            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize){
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize) {
 
         if (pagenum <= 0 || pagesize <= 0) {
             return CommonResult.failed("参数有误！");
         }
         //PageResult<WebAccount> pageResult=webAccountService.findUserByPage(query,pagenum,pagesize);
-
-        PageResult<PackageInformation> pageResult=packageInformationService.findPackageByPage(query,pagenum,pagesize);
-        if (CollectionUtils.isEmpty(pageResult.getItems())){
+        PageResult<PackageInformation> pageResult = packageInformationService.findPackageByPage(query, pagenum, pagesize);
+        if (CollectionUtils.isEmpty(pageResult.getItems())) {
             return CommonResult.success();
         }
         return CommonResult.success(pageResult);

@@ -4,6 +4,7 @@ import cn.lingnan.dao.PackageInformationMapper;
 import cn.lingnan.dto.PackageInformation;
 import cn.lingnan.service.PackageInformationService;
 import cn.lingnan.util.PageResult;
+import cn.lingnan.util.PhoneFormatCheckUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -48,20 +49,25 @@ public class PackageInformationServiceImpl implements PackageInformationService 
     }
 
     @Override
-    public List<PackageInformation> findByExpressNumber(String expressNumber){
+    public List<PackageInformation> findByExpressNumber(String expressNumber) {
         return packageInformationMapper.findByExpressNumber(expressNumber);
     }
 
 
     @Override
-    public PageResult<PackageInformation> findPackageByPage(String query, Integer pagenum, Integer pagesize){
+    public PageResult<PackageInformation> findPackageByPage(String query, Integer pagenum, Integer pagesize) {
         PageHelper.startPage(pagenum, pagesize);
-        if(query==null) {
-            query="%%";
-        }else{
-            query="%"+query+"%";
+        if (query == null) {
+            query = "%%";
+        } else {
+            query = "%" + query + "%";
         }
-        PageInfo<PackageInformation> pageInfo=new PageInfo<>(packageInformationMapper.findPackageByPage(query));
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
+        if (PhoneFormatCheckUtils.isPhoneLegal(query)) {
+            PageInfo<PackageInformation> pageInfo = new PageInfo<>(packageInformationMapper.findPackageByPhone(query));
+            return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
+        } else {
+            PageInfo<PackageInformation> pageInfo = new PageInfo<>(packageInformationMapper.findPackageByPackageId(query));
+            return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
+        }
     }
 }

@@ -1,7 +1,9 @@
 package cn.lingnan.dao;
 
 import cn.lingnan.dto.PackageInformation;
-import org.apache.ibatis.annotations.Mapper;import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface PackageInformationMapper {
@@ -19,5 +21,8 @@ public interface PackageInformationMapper {
 
     List<PackageInformation> findByExpressNumber(String expressNumber);
 
-    List<PackageInformation> findPackageByPage(String query);
+    List<PackageInformation> findPackageByPackageId(String query);
+
+    List<PackageInformation> findPackageByPhone(String query);
+
 }

@@ -7,9 +7,9 @@ public enum ResultCode implements IErrorCode {
     VALIDATE_FAILED(404, "参数检验失败"),
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
     FORBIDDEN(403, "没有相关权限"),
-    PHONE_EXIST(409,"User with the same phone number exist!");
-    private long code;
-    private String message;
+    PHONE_EXIST(409, "User with the same phone number exist!");
+    private final long code;
+    private final String message;
 
     ResultCode(long code, String message) {
         this.code = code;

@@ -3,11 +3,15 @@ package cn.lingnan.service.impl;
 import cn.lingnan.dao.PackageBoxInformationMapper;
 import cn.lingnan.dto.PackageBoxInformation;
 import cn.lingnan.service.PackageBoxInformationService;
+import cn.lingnan.util.PageResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 @Service
-public class PackageBoxInformationServiceImpl implements PackageBoxInformationService{
+public class PackageBoxInformationServiceImpl implements PackageBoxInformationService {
 
     @Resource
     private PackageBoxInformationMapper packageBoxInformationMapper;
@@ -48,7 +52,19 @@ public class PackageBoxInformationServiceImpl implements PackageBoxInformationSe
     }
 
     @Override
-    public PackageBoxInformation findByCode(String packageCode){
-        return packageBoxInformationMapper.findByCode(packageCode);
+    public PackageBoxInformation findByCode(String code) {
+        return packageBoxInformationMapper.findByCode(code);
+    }
+
+    @Override
+    public PageResult<PackageBoxInformation> findByPage(String query, Integer pagenum, Integer pagesize) {
+        PageHelper.startPage(pagenum, pagesize);
+        if (query == null) {
+            query = "%%";
+        } else {
+            query = "%" + query + "%";
+        }
+        PageInfo<PackageBoxInformation> pageInfo = new PageInfo<>(packageBoxInformationMapper.findByPage(query));
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
     }
 }

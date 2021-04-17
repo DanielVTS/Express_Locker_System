@@ -9,6 +9,8 @@ import java.util.List;
 public interface LockerBoxInformationMapper {
     int deleteByPrimaryKey(Object lockerBoxId);
 
+    int deleteByLockerId(Long id);
+
     int insert(LockerBoxInformation record);
 
     int insertSelective(LockerBoxInformation record);
@@ -20,4 +22,6 @@ public interface LockerBoxInformationMapper {
     int updateByPrimaryKey(LockerBoxInformation record);
 
     List<LockerBoxInformation> findBoxListInOneLocker(Long lockerId);
+
+    List<LockerBoxInformation> findBoxList(String query);
 }
