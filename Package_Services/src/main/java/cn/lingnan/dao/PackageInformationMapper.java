@@ -18,4 +18,6 @@ public interface PackageInformationMapper {
     int updateByPrimaryKey(PackageInformation record);
 
     List<PackageInformation> findByExpressNumber(String expressNumber);
+
+    List<PackageInformation> findPackageByPage(String query);
 }

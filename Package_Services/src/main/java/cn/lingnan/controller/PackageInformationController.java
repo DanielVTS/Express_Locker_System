@@ -8,14 +8,13 @@ import cn.lingnan.service.PackageBoxInformationService;
 import cn.lingnan.service.PackageInformationService;
 import cn.lingnan.util.CommonResult;
 import cn.lingnan.util.MapToBean;
+import cn.lingnan.util.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -132,6 +131,24 @@ public class PackageInformationController {
             return CommonResult.success();
         }
         else return CommonResult.failed();
+    }
+
+    @GetMapping("list")
+    public CommonResult<Object> findPackageByPage(
+            @RequestParam(name = "query", required = false) String query,
+            @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
+            @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize){
+
+        if (pagenum <= 0 || pagesize <= 0) {
+            return CommonResult.failed("参数有误！");
+        }
+        //PageResult<WebAccount> pageResult=webAccountService.findUserByPage(query,pagenum,pagesize);
+
+        PageResult<PackageInformation> pageResult=packageInformationService.findPackageByPage(query,pagenum,pagesize);
+        if (CollectionUtils.isEmpty(pageResult.getItems())){
+            return CommonResult.success();
+        }
+        return CommonResult.success(pageResult);
     }
 
 }

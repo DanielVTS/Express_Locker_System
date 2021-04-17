@@ -230,10 +230,18 @@
       remark = #{remark,jdbcType=VARCHAR}
     where package_id = #{packageId,jdbcType=BIGINT}
   </update>
+
   <select id="findByExpressNumber" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from package_information
-    where express_number= #{express_number,jdbcType=VARCHAR}
+    from els_package.package_information
+    where express_number = #{express_number,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findPackageByPage" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from els_package.package_information
+    where express_number like #{express_number,jdbcType=VARCHAR}
   </select>
 </mapper>

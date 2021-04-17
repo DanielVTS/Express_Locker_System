@@ -78,7 +78,7 @@ public class LockerBasicInformationController {
         if (pageNum <= 0 || pageSize <= 0) {
             return CommonResult.failed("参数有误！");
         }
-        if (query.length() == 18) {
+        if (query!=null&&query.length() == 18) {
             try {
                 id = Long.parseLong(query);
                 List<LockerBasicInformation> list = new ArrayList<>();
@@ -88,6 +88,7 @@ public class LockerBasicInformationController {
             } catch (NumberFormatException ignored) {
 
             }
+
         }
         PageResult<LockerBasicInformation> pageResult = this.lockerBasicInformationService.findLockerByPage(query, pageNum, pageSize);
         return CommonResult.success(pageResult);

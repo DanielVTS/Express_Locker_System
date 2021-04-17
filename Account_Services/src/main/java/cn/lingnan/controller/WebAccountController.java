@@ -9,9 +9,7 @@ import cn.lingnan.util.PageResult;
 import cn.lingnan.util.PhoneFormatCheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,11 +27,12 @@ public class WebAccountController {
     private WebAccountService webAccountService;
 
     @PostMapping("register")
-    public CommonResult<Object> register(@RequestBody @Validated WebAccount webAccount) {
-        if(webAccountService.findByPhone(webAccount.getPhone())!=null){
+    public CommonResult<Object> register(@RequestBody  WebAccount webAccount) {
+        if(webAccountService.findByPhone(webAccount.getPhone()).size()>0){
             return CommonResult.phone_failed();
         }
         Calendar a = Calendar.getInstance();
+        webAccount.setStatus(1);
         webAccount.setCreateTime(a.getTime());
         webAccount.setUpdateTime(a.getTime());
         webAccount.setStatusTime(a.getTime());
@@ -98,7 +97,6 @@ public class WebAccountController {
     }
 
     @PutMapping("update")
-
     //public CommonResult<Object> update(@RequestBody Map<String, String> map) {
     public CommonResult<Object> update(@RequestBody WebAccount webAccount) {
         //WebAccount webAccount = null;
@@ -116,6 +114,30 @@ public class WebAccountController {
         if (result == 1) {
             return CommonResult.success();
         } else throw new APIException(500, "WebAccount记录插入异常！");
+    }
+
+    @PutMapping("updatePassword")
+    public CommonResult<Object> updatePassword(@RequestBody Map<String, String> map) {
+        WebAccount webAccount = new WebAccount();
+        webAccount.setId(Long.valueOf(map.get("id")));
+        if(webAccountService.selectByPrimaryKey(
+                webAccount.getId()).
+                getPassword().equals(map.get("password1"))){
+            webAccount.setPassword(map.get("password2"));
+            if(webAccount.getId()==null){
+                return CommonResult.failed();
+            }
+            Calendar a = Calendar.getInstance();
+            webAccount.setUpdateTime(a.getTime());
+            a.add(Calendar.YEAR, 5);
+            webAccount.setExpTime(a.getTime());
+            int result = webAccountService.updateByPrimaryKeySelective(webAccount);
+            if (result == 1) {
+                return CommonResult.success();
+            } else throw new APIException(500, "WebAccount记录插入异常！");
+        }else{
+            return CommonResult.failed();
+        }
     }
 
     @DeleteMapping("delete/{id}")

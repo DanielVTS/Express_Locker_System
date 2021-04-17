@@ -1,6 +1,7 @@
 package cn.lingnan.service;
 
 import cn.lingnan.dto.PackageInformation;
+import cn.lingnan.util.PageResult;
 
 import java.util.List;
 
@@ -21,4 +22,5 @@ public interface PackageInformationService {
 
     List<PackageInformation> findByExpressNumber(String expressNumber);
 
+    PageResult<PackageInformation> findPackageByPage(String query, Integer pagenum, Integer pagesize);
 }
