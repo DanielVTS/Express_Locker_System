@@ -23,6 +23,7 @@ import java.util.Map;
 
 @RequestMapping("packageInformation")
 @Controller
+@CrossOrigin
 public class PackageInformationController {
     @Resource
     private PackageInformationService packageInformationService;
@@ -33,7 +34,7 @@ public class PackageInformationController {
 
     @PostMapping("addPackage")
     @ResponseBody
-    public String AddPackageInformation(@RequestBody @Validated PackageInformation record) {
+    public String AddPackageInformation(@RequestBody  PackageInformation record) {
         logger.info("添加PackageInformation ==>" + record.toString());
         int result = packageInformationService.insertSelective(record);
         if (result != 1) {
@@ -44,7 +45,7 @@ public class PackageInformationController {
 
     @PostMapping("removePackage")
     @ResponseBody
-    public String RemovePackageInformation(@RequestBody @Validated PackageInformation record) {
+    public String RemovePackageInformation(@RequestBody  PackageInformation record) {
         logger.info("删除PackageInformation ==>" + record.toString());
         int result = packageInformationService.deleteByPrimaryKey(record.getPackageId());
         if (result != 1) {
@@ -55,7 +56,7 @@ public class PackageInformationController {
 
     @PostMapping("editPackage")
     @ResponseBody
-    public String EditPackageInformation(@RequestBody @Validated PackageInformation record) {
+    public String EditPackageInformation(@RequestBody  PackageInformation record) {
         logger.info("修改PackageInformation ==>" + record.toString());
         int result = packageInformationService.updateByPrimaryKey(record);
         if (result != 1) {

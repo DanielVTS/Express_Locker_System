@@ -18,6 +18,7 @@ import java.util.List;
 
 @RequestMapping("lockerBasicInformation")
 @Controller
+@CrossOrigin
 public class LockerBasicInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBasicInformationService.class);
     @Resource
@@ -25,7 +26,7 @@ public class LockerBasicInformationController {
 
     @PostMapping("addLocker")
     @ResponseBody
-    public String AddLocker(@RequestBody @Validated LockerBasicInformation record) {
+    public String AddLocker(@RequestBody LockerBasicInformation record) {
         logger.info("添加Locker ==>" + record.toString());
         int result = lockerBasicInformationService.insert(record);
         if (result != 1) {
@@ -36,7 +37,7 @@ public class LockerBasicInformationController {
 
     @PostMapping("removeLocker")
     @ResponseBody
-    public String RemoveLocker(@RequestBody @Validated LockerBasicInformation record) {
+    public String RemoveLocker(@RequestBody LockerBasicInformation record) {
         logger.info("删除Locker ==>" + record.toString());
         int result = lockerBasicInformationService.deleteByPrimaryKey(record.getLockerId());
         if (result != 1) {
@@ -47,7 +48,7 @@ public class LockerBasicInformationController {
 
     @PostMapping("editLocker")
     @ResponseBody
-    public String EditLocker(@RequestBody @Validated LockerBasicInformation record) {
+    public String EditLocker(@RequestBody LockerBasicInformation record) {
         logger.info("修改Locker ==>" + record.toString());
         int result = lockerBasicInformationService.updateByPrimaryKey(record);
         if (result != 1) {
