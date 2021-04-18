@@ -20,7 +20,8 @@ import java.util.Map;
 
 @RequestMapping("lockerBasicInformation")
 @Controller
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin
+//@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
 public class LockerBasicInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBasicInformationService.class);
     @Resource
@@ -36,7 +37,7 @@ public class LockerBasicInformationController {
         String city = map.get("city");
         String lockerName = map.get("lockerName");
         int row_num = Integer.parseInt(map.get("row"));
-        int column_num = Integer.parseInt(map.get("column_num"));
+        int column_num = Integer.parseInt(map.get("column"));
         int total_box = Integer.parseInt(map.get("totalBox"));
         if (lockerBasicInformationService.findLockerByParam(province, city, lockerName, total_box).getLockerId() != null) {
             return CommonResult.failed("已有重复快递柜存在！");

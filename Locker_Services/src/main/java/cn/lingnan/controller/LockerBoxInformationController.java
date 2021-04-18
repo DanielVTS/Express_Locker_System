@@ -19,7 +19,8 @@ import java.util.Map;
 
 @RequestMapping("lockerBoxInformation")
 @Controller
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin
+//@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
 public class LockerBoxInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBoxInformationService.class);
     @Resource

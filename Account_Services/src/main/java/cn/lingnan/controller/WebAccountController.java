@@ -20,8 +20,8 @@ import java.util.Map;
 
 @RequestMapping("account")
 @RestController
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
-
+@CrossOrigin
+//@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
 public class WebAccountController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
