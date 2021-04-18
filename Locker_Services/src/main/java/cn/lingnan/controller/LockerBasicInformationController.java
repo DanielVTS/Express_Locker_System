@@ -39,7 +39,7 @@ public class LockerBasicInformationController {
         int row_num = Integer.parseInt(map.get("row"));
         int column_num = Integer.parseInt(map.get("column"));
         int total_box = Integer.parseInt(map.get("totalBox"));
-        if (lockerBasicInformationService.findLockerByParam(province, city, lockerName, total_box).getLockerId() != null) {
+        if (lockerBasicInformationService.findLockerByParam(province, city, lockerName, total_box) != null) {
             return CommonResult.failed("已有重复快递柜存在！");
         }
         record.setProvince(province);
@@ -50,7 +50,7 @@ public class LockerBasicInformationController {
         record.setTotalBox(total_box);
         record.setUsedBox(0);
         record.setCreateTime(new Date(System.currentTimeMillis()));
-        logger.info("添加Locker ==>" + record.toString());
+        logger.info("添加Locker ==>" + record);
         int result = lockerBasicInformationService.insertSelective(record);
         if (result != 1) {
             throw new APIException(500, "LBI记录插入异常！");
