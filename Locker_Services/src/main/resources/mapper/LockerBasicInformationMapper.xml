@@ -1,194 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.lingnan.dao.LockerBasicInformationMapper">
-  <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBasicInformation">
-    <!--@mbg.generated-->
-    <!--@Table els_locker.locker_basic_information-->
-    <id column="locker_id" jdbcType="BIGINT" property="lockerId" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
-    <result column="locker_name" jdbcType="VARCHAR" property="lockerName" />
-    <result column="total_box" jdbcType="INTEGER" property="totalBox" />
-    <result column="used_box" jdbcType="INTEGER" property="usedBox" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="status_time" jdbcType="TIMESTAMP" property="statusTime" />
-    <result column="row_num" jdbcType="INTEGER" property="rowNum" />
-    <result column="column_num" jdbcType="INTEGER" property="columnNum" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    locker_id, province, city, locker_name, total_box, used_box, create_time, update_time, 
-    status_time, row_num, column_num, remark
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from els_locker.locker_basic_information
-    where locker_id = #{lockerId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from els_locker.locker_basic_information
-    where locker_id = #{lockerId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="cn.lingnan.dto.LockerBasicInformation">
-    <!--@mbg.generated-->
-    insert into els_locker.locker_basic_information (locker_id, province, city, 
-      locker_name, total_box, used_box, 
-      create_time, update_time, status_time, 
-      row_num, column_num, remark
-      )
-    values (#{lockerId,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{lockerName,jdbcType=VARCHAR}, #{totalBox,jdbcType=INTEGER}, #{usedBox,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, 
-      #{rowNum,jdbcType=INTEGER}, #{columnNum,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
-    <!--@mbg.generated-->
-    insert into els_locker.locker_basic_information
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="lockerId != null">
-        locker_id,
-      </if>
-      <if test="province != null">
-        province,
-      </if>
-      <if test="city != null">
-        city,
-      </if>
-      <if test="lockerName != null">
-        locker_name,
-      </if>
-      <if test="totalBox != null">
-        total_box,
-      </if>
-      <if test="usedBox != null">
-        used_box,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="statusTime != null">
-        status_time,
-      </if>
-      <if test="rowNum != null">
-        row_num,
-      </if>
-      <if test="columnNum != null">
-        column_num,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="lockerId != null">
-        #{lockerId,jdbcType=BIGINT},
-      </if>
-      <if test="province != null">
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="lockerName != null">
-        #{lockerName,jdbcType=VARCHAR},
-      </if>
-      <if test="totalBox != null">
-        #{totalBox,jdbcType=INTEGER},
-      </if>
-      <if test="usedBox != null">
-        #{usedBox,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="statusTime != null">
-        #{statusTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="rowNum != null">
-        #{rowNum,jdbcType=INTEGER},
-      </if>
-      <if test="columnNum != null">
-        #{columnNum,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
-    <!--@mbg.generated-->
-    update els_locker.locker_basic_information
-    <set>
-      <if test="province != null">
-        province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
+    <resultMap id="BaseResultMap" type="cn.lingnan.dto.LockerBasicInformation">
+        <!--@mbg.generated-->
+        <!--@Table els_locker.locker_basic_information-->
+        <id column="locker_id" jdbcType="BIGINT" property="lockerId"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="locker_name" jdbcType="VARCHAR" property="lockerName"/>
+        <result column="total_box" jdbcType="INTEGER" property="totalBox"/>
+        <result column="used_box" jdbcType="INTEGER" property="usedBox"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="status_time" jdbcType="TIMESTAMP" property="statusTime"/>
+        <result column="row_num" jdbcType="INTEGER" property="rowNum"/>
+        <result column="column_num" jdbcType="INTEGER" property="columnNum"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        locker_id, province, city, locker_name, total_box, used_box, create_time, update_time,
+        status_time, row_num, column_num, remark
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from els_locker.locker_basic_information
+        where locker_id = #{lockerId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from els_locker.locker_basic_information
+        where locker_id = #{lockerId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="cn.lingnan.dto.LockerBasicInformation">
+        <!--@mbg.generated-->
+        insert into els_locker.locker_basic_information (locker_id, province, city,
+        locker_name, total_box, used_box,
+        create_time, update_time, status_time,
+        row_num, column_num, remark
+        )
+        values (#{lockerId,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+        #{lockerName,jdbcType=VARCHAR}, #{totalBox,jdbcType=INTEGER}, #{usedBox,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP},
+        #{rowNum,jdbcType=INTEGER}, #{columnNum,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
+        <!--@mbg.generated-->
+        insert into els_locker.locker_basic_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="lockerId != null">
+                locker_id,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="lockerName != null">
+                locker_name,
+            </if>
+            <if test="totalBox != null">
+                total_box,
+            </if>
+            <if test="usedBox != null">
+                used_box,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="statusTime != null">
+                status_time,
+            </if>
+            <if test="rowNum != null">
+                row_num,
+            </if>
+            <if test="columnNum != null">
+                column_num,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="lockerId != null">
+                #{lockerId,jdbcType=BIGINT},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="lockerName != null">
+                #{lockerName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalBox != null">
+                #{totalBox,jdbcType=INTEGER},
+            </if>
+            <if test="usedBox != null">
+                #{usedBox,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusTime != null">
+                #{statusTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rowNum != null">
+                #{rowNum,jdbcType=INTEGER},
+            </if>
+            <if test="columnNum != null">
+                #{columnNum,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.lingnan.dto.LockerBasicInformation">
+        <!--@mbg.generated-->
+        update els_locker.locker_basic_information
+        <set>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="lockerName != null">
+                locker_name = #{lockerName,jdbcType=VARCHAR},
+            </if>
+            <if test="totalBox != null">
+                total_box = #{totalBox,jdbcType=INTEGER},
+            </if>
+            <if test="usedBox != null">
+                used_box = #{usedBox,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="statusTime != null">
+                status_time = #{statusTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="rowNum != null">
+                row_num = #{rowNum,jdbcType=INTEGER},
+            </if>
+            <if test="columnNum != null">
+                column_num = #{columnNum,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where locker_id = #{lockerId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBasicInformation">
+        <!--@mbg.generated-->
+        update els_locker.locker_basic_information
+        set province = #{province,jdbcType=VARCHAR},
         city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="lockerName != null">
         locker_name = #{lockerName,jdbcType=VARCHAR},
-      </if>
-      <if test="totalBox != null">
         total_box = #{totalBox,jdbcType=INTEGER},
-      </if>
-      <if test="usedBox != null">
         used_box = #{usedBox,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="statusTime != null">
         status_time = #{statusTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="rowNum != null">
         row_num = #{rowNum,jdbcType=INTEGER},
-      </if>
-      <if test="columnNum != null">
         column_num = #{columnNum,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where locker_id = #{lockerId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.lingnan.dto.LockerBasicInformation">
-    <!--@mbg.generated-->
-    update els_locker.locker_basic_information
-    set province = #{province,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      locker_name = #{lockerName,jdbcType=VARCHAR},
-      total_box = #{totalBox,jdbcType=INTEGER},
-      used_box = #{usedBox,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      status_time = #{statusTime,jdbcType=TIMESTAMP},
-      row_num = #{rowNum,jdbcType=INTEGER},
-      column_num = #{columnNum,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where locker_id = #{lockerId,jdbcType=BIGINT}
-  </update>
+        remark = #{remark,jdbcType=VARCHAR}
+        where locker_id = #{lockerId,jdbcType=BIGINT}
+    </update>
 
-  <select id="selectAll" parameterType="cn.lingnan.dto.LockerBasicInformation" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from els_locker.locker_basic_information
-    where locker_name like #{query,jdbcType=VARCHAR}
-  </select>
+    <select id="selectAll" parameterType="cn.lingnan.dto.LockerBasicInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from els_locker.locker_basic_information
+        where locker_name like #{query,jdbcType=VARCHAR}
+    </select>
 
+    <select id="findLockerByParam" parameterType="cn.lingnan.dto.LockerBasicInformation" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from els_locker.locker_basic_information
+        where province= #{province,jdbcType=VARCHAR}
+        and city= #{city,jdbcType=VARCHAR}
+        and locker_name= #{name,jdbcType=VARCHAR}
+        and total_box=#{total_box,jdbcType=INTEGER}
+    </select>
 </mapper>

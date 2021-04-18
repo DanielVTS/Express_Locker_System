@@ -1,7 +1,10 @@
 package cn.lingnan.dao;
 
 import cn.lingnan.dto.LockerBasicInformation;
-import org.apache.ibatis.annotations.Mapper;import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface LockerBasicInformationMapper {
@@ -18,4 +21,7 @@ public interface LockerBasicInformationMapper {
     int updateByPrimaryKey(LockerBasicInformation record);
 
     List<LockerBasicInformation> selectAll(String query);
+
+    LockerBasicInformation findLockerByParam(@Param("province") String province, @Param("city") String city, @Param("name") String name, @Param("total_box") int total_box);
+
 }

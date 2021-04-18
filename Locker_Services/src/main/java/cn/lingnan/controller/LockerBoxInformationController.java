@@ -19,12 +19,13 @@ import java.util.Map;
 
 @RequestMapping("lockerBoxInformation")
 @Controller
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
 public class LockerBoxInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBoxInformationService.class);
     @Resource
     private LockerBoxInformationService lockerBoxInformationService;
 
+    @Deprecated
     @PostMapping("addLockerBoxRow")
     @ResponseBody
     public CommonResult<Object> AddLockerBoxRow(@RequestBody Map<String, String> map) {
@@ -56,6 +57,87 @@ public class LockerBoxInformationController {
                     throw new APIException("Box记录插入异常");
                 }
             }
+        } catch (NullPointerException e) {
+            return CommonResult.failed("参数缺失！");
+        } catch (NumberFormatException e) {
+            return CommonResult.failed("参数有误！");
+        } catch (APIException e) {
+            return CommonResult.failed(e.getMessage());
+        }
+        return CommonResult.success();
+    }
+
+    @PostMapping("autoAddLockerBox")
+    @ResponseBody
+    public CommonResult<Object> AddLockerBoxColumn(@RequestBody Map<String, String> map) {
+        try {
+            Long lockerId = Long.valueOf(map.get("id"));
+            int row = Integer.parseInt(map.get("row"));
+            int column = Integer.parseInt(map.get("column"));
+            int big = Integer.parseInt(map.get("boxType"));
+            int normal = Integer.parseInt(map.get("boxType"));
+            int small = Integer.parseInt(map.get("boxType"));
+            int terminalPosition = Integer.parseInt(map.get("terminalPosition"));
+            if (big + normal + small != row) {
+                throw new APIException("传入参数有误！");
+            }
+            List<LockerBoxInformation> list = lockerBoxInformationService.findBoxListInOneLocker(lockerId);
+            for (LockerBoxInformation t : list) {
+                if (t.getLockerColumn() == column) {
+                    throw new APIException("此快递柜该列已有数据");
+                }
+            }
+            LockerBoxInformation a = new LockerBoxInformation();
+            Date date = new Date(System.currentTimeMillis());
+            a.setLockerId(lockerId);
+            a.setLockerColumn(column);
+            a.setDoorStatus(1);
+            a.setBoxIsEmpty(1);
+            a.setStatus(1);
+            a.setCreateTime(date);
+            a.setUpdateTime(date);
+            a.setStatusTime(date);
+            for (int x = 1; x < column; x++) {
+                a.setLockerColumn(x);
+                if (x == terminalPosition) {
+                    for (int y = 9; y < row; y++) {
+                        a.setLockerRow(y);
+                        a.setBoxType(3);
+                        if (lockerBoxInformationService.insert(a) != 1) {
+                            throw new APIException("Box记录插入异常");
+                        }
+
+                    }
+                } else {
+                    for (int y = 1; y < row; ) {
+                        for (int i = 1; i < big; i++) {
+                            a.setLockerRow(y);
+                            a.setBoxType(1);
+                            if (lockerBoxInformationService.insert(a) != 1) {
+                                throw new APIException("Box记录插入异常");
+                            }
+                            y++;
+                        }
+                        for (int i = 1; i < normal; i++) {
+                            a.setLockerRow(y);
+                            a.setBoxType(2);
+                            if (lockerBoxInformationService.insert(a) != 1) {
+                                throw new APIException("Box记录插入异常");
+                            }
+                            y++;
+                        }
+                        for (int i = 1; i < small; i++) {
+                            a.setLockerRow(y);
+                            a.setBoxType(3);
+                            if (lockerBoxInformationService.insert(a) != 1) {
+                                throw new APIException("Box记录插入异常");
+                            }
+                            y++;
+                        }
+                    }
+                }
+            }
+
         } catch (NullPointerException e) {
             return CommonResult.failed("参数缺失！");
         } catch (NumberFormatException e) {

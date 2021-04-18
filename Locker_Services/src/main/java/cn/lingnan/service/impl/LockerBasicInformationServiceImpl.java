@@ -9,7 +9,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class LockerBasicInformationServiceImpl implements LockerBasicInformationService {
@@ -48,14 +47,19 @@ public class LockerBasicInformationServiceImpl implements LockerBasicInformation
     }
 
     @Override
-    public PageResult<LockerBasicInformation> findLockerByPage(String query,Integer pageNum, Integer pageSize) {
+    public LockerBasicInformation findLockerByParam(String province, String city, String name, int total_box) {
+        return lockerBasicInformationMapper.findLockerByParam(province, city, name, total_box);
+    }
+
+    @Override
+    public PageResult<LockerBasicInformation> findLockerByPage(String query, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        if(query==null) {
-            query="%%";
-        }else{
-            query="%"+query+"%";
+        if (query == null) {
+            query = "%%";
+        } else {
+            query = "%" + query + "%";
         }
-        PageInfo<LockerBasicInformation> pageInfo=new PageInfo<>(lockerBasicInformationMapper.selectAll(query));
+        PageInfo<LockerBasicInformation> pageInfo = new PageInfo<>(lockerBasicInformationMapper.selectAll(query));
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
 
     }

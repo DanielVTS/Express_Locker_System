@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("lockerBasicInformation")
 @Controller
-@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", allowCredentials = "true")
 public class LockerBasicInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBasicInformationService.class);
     @Resource
@@ -28,13 +30,47 @@ public class LockerBasicInformationController {
 
     @PostMapping("addLocker")
     @ResponseBody
-    public String AddLocker(@RequestBody LockerBasicInformation record) {
+    public CommonResult<Object> AddLocker(@RequestBody Map<String, String> map) {
+        LockerBasicInformation record = new LockerBasicInformation();
+        String province = map.get("province");
+        String city = map.get("city");
+        String lockerName = map.get("lockerName");
+        int row_num = Integer.parseInt(map.get("row"));
+        int column_num = Integer.parseInt(map.get("column_num"));
+        int total_box = Integer.parseInt(map.get("totalBox"));
+        if (lockerBasicInformationService.findLockerByParam(province, city, lockerName, total_box).getLockerId() != null) {
+            return CommonResult.failed("已有重复快递柜存在！");
+        }
+        record.setProvince(province);
+        record.setCity(city);
+        record.setLockerName(lockerName);
+        record.setRowNum(row_num);
+        record.setColumnNum(column_num);
+        record.setTotalBox(total_box);
+        record.setUsedBox(0);
+        record.setCreateTime(new Date(System.currentTimeMillis()));
         logger.info("添加Locker ==>" + record.toString());
-        int result = lockerBasicInformationService.insert(record);
+        int result = lockerBasicInformationService.insertSelective(record);
         if (result != 1) {
             throw new APIException(500, "LBI记录插入异常！");
         }
-        return "LBI记录插入成功！";
+        return CommonResult.success(lockerBasicInformationService.findLockerByParam(province, city, lockerName, total_box));
+    }
+
+    @GetMapping("findLockerByParam")
+    @ResponseBody
+    public CommonResult<Object> findLockerByParam(
+            @RequestParam(name = "province") String province,
+            @RequestParam(name = "city") String city,
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "total_box") String total_box) {
+        int totalBox = 0;
+        try {
+            totalBox = Integer.parseInt(total_box);
+        } catch (NumberFormatException ignored) {
+
+        }
+        return CommonResult.success(lockerBasicInformationService.findLockerByParam(province, city, name, totalBox));
     }
 
     @DeleteMapping("removeLocker/{id}")

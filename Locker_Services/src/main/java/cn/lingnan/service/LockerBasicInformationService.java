@@ -3,8 +3,6 @@ package cn.lingnan.service;
 import cn.lingnan.dto.LockerBasicInformation;
 import cn.lingnan.util.PageResult;
 
-import java.util.List;
-
 public interface LockerBasicInformationService {
 
 
@@ -20,7 +18,9 @@ public interface LockerBasicInformationService {
 
     int updateByPrimaryKey(LockerBasicInformation record);
 
-    PageResult<LockerBasicInformation> findLockerByPage(String query,Integer pageNum, Integer pageSize);
+    LockerBasicInformation findLockerByParam(String province, String city, String name, int total_box);
+
+    PageResult<LockerBasicInformation> findLockerByPage(String query, Integer pageNum, Integer pageSize);
 
 
 }
