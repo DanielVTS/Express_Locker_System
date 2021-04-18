@@ -18,7 +18,7 @@ import java.util.List;
 
 @RequestMapping("lockerBasicInformation")
 @Controller
-@CrossOrigin(originPatterns = {"danielvt.xyz", "localhost", "127.0.0.1"})
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
 public class LockerBasicInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBasicInformationService.class);
     @Resource

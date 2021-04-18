@@ -22,7 +22,7 @@ import java.util.Map;
 
 @RequestMapping("packageInformation")
 @Controller
-@CrossOrigin(originPatterns = {"danielvt.xyz", "localhost", "127.0.0.1"})
+@CrossOrigin(origins = {"http://localhost:8080", "http://127.0.0.1:8080", "http://api.danielvt.xyz", "http://express.danielvt.xyz"}, allowedHeaders = "*", methods = {}, allowCredentials = "true")
 public class PackageInformationController {
     @Resource
     private PackageInformationService packageInformationService;
