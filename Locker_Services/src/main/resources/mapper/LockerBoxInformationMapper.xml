@@ -194,6 +194,7 @@
         <include refid="Base_Column_List"/>
         from els_locker.locker_box_information
         where locker_id= #{lockerId,jdbcType=BIGINT}
+        order by locker_id,locker_column,locker_row,status
     </select>
     <select id="findBoxList" parameterType="cn.lingnan.dto.LockerBoxInformation" resultMap="BaseResultMap">
         select
