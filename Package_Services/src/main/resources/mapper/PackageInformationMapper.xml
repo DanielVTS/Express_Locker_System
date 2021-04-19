@@ -13,7 +13,7 @@
         <result column="sender_name" jdbcType="VARCHAR" property="senderName"/>
         <result column="sender_phone" jdbcType="VARCHAR" property="senderPhone"/>
         <result column="sender_address" jdbcType="VARCHAR" property="senderAddress"/>
-        <result column="exp_operator_id" jdbcType="INTEGER" property="expOperatorId"/>
+        <result column="exp_operator_id" jdbcType="BIGINT" property="expOperatorId"/>
         <result column="exp_operator_phone" jdbcType="VARCHAR" property="expOperatorPhone"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -50,7 +50,7 @@
         values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=VARCHAR}, #{expressCompany,jdbcType=INTEGER},
         #{receiverPhone,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR},
         #{senderName,jdbcType=VARCHAR}, #{senderPhone,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR},
-        #{expOperatorId,jdbcType=INTEGER}, #{expOperatorPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+        #{expOperatorId,jdbcType=BIGINT}, #{expOperatorPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
         #{updateTime,jdbcType=TIMESTAMP}, #{statusTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER},
         #{remark,jdbcType=VARCHAR})
     </insert>
@@ -136,7 +136,7 @@
                 #{senderAddress,jdbcType=VARCHAR},
             </if>
             <if test="expOperatorId != null">
-                #{expOperatorId,jdbcType=INTEGER},
+                #{expOperatorId,jdbcType=BIGINT},
             </if>
             <if test="expOperatorPhone != null">
                 #{expOperatorPhone,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
                 sender_address = #{senderAddress,jdbcType=VARCHAR},
             </if>
             <if test="expOperatorId != null">
-                exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
+                exp_operator_id = #{expOperatorId,jdbcType=BIGINT},
             </if>
             <if test="expOperatorPhone != null">
                 exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
@@ -221,7 +221,7 @@
         sender_name = #{senderName,jdbcType=VARCHAR},
         sender_phone = #{senderPhone,jdbcType=VARCHAR},
         sender_address = #{senderAddress,jdbcType=VARCHAR},
-        exp_operator_id = #{expOperatorId,jdbcType=INTEGER},
+        exp_operator_id = #{expOperatorId,jdbcType=BIGINT},
         exp_operator_phone = #{expOperatorPhone,jdbcType=VARCHAR},
         create_time = #{createTime,jdbcType=TIMESTAMP},
         update_time = #{updateTime,jdbcType=TIMESTAMP},

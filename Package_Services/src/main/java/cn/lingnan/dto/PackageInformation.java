@@ -1,10 +1,10 @@
 package cn.lingnan.dto;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class PackageInformation {
@@ -27,7 +27,7 @@ public class PackageInformation {
 
     private String senderAddress;
 
-    private Integer expOperatorId;
+    private Long expOperatorId;
 
     private String expOperatorPhone;
 

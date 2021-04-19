@@ -43,18 +43,18 @@ public class PackageInformationController {
         return "PackageInformation记录插入成功！";
     }
 
-    @PostMapping("removePackage")
+    @PostMapping("removePackage/{id}")
     @ResponseBody
-    public String RemovePackageInformation(@RequestBody PackageInformation record) {
-        logger.info("删除PackageInformation ==>" + record.toString());
-        int result = packageInformationService.deleteByPrimaryKey(record.getPackageId());
+    public String RemovePackageInformation(@PathVariable(name = "id") String id) {
+        logger.info("删除PackageInformation ==>" + id);
+        int result = packageInformationService.deleteByPrimaryKey(Long.valueOf(id));
         if (result != 1) {
             throw new APIException(500, "PackageInformation记录删除异常！");
         }
         return "PackageInformation记录删除成功！";
     }
 
-    @PostMapping("editPackage")
+    @PutMapping("editPackage")
     @ResponseBody
     public String EditPackageInformation(@RequestBody PackageInformation record) {
         Date now = new Date(System.currentTimeMillis());
@@ -63,7 +63,7 @@ public class PackageInformationController {
             record.setStatusTime(now);
         }
         logger.info("修改PackageInformation ==>" + record);
-        int result = packageInformationService.updateByPrimaryKey(record);
+        int result = packageInformationService.updateByPrimaryKeySelective(record);
         if (result != 1) {
             throw new APIException(500, "PackageInformation记录修改异常！");
         }
