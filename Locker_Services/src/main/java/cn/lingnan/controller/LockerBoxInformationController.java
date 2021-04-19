@@ -156,6 +156,12 @@ public class LockerBoxInformationController {
     @ResponseBody
     public String AddLockerBox(@RequestBody LockerBoxInformation record) {
         logger.info("添加LockerBox ==>" + record.toString());
+        record.setDoorStatus(1);
+        record.setBoxIsEmpty(1);
+        Date date = new Date(System.currentTimeMillis());
+        record.setCreateTime(date);
+        record.setUpdateTime(date);
+        record.setStatusTime(date);
         int result = lockerBoxInformationService.insertSelective(record);
         if (result != 1) {
             throw new APIException(500, "Box记录插入异常！");
