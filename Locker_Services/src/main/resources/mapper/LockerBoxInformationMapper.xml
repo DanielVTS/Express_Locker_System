@@ -38,7 +38,7 @@
     <delete id="deleteByLockerId" parameterType="java.lang.Long">
         delete
         from els_locker.locker_box_information
-        where locker_id= #{lockerId,jdbcType=BIGINT}
+        where locker_id = #{lockerId,jdbcType=BIGINT}
     </delete>
     <insert id="insert" parameterType="cn.lingnan.dto.LockerBoxInformation">
         <!--@mbg.generated-->
@@ -199,6 +199,6 @@
         select
         <include refid="Base_Column_List"/>
         from els_locker.locker_box_information
-        where locker_id like #{query,jdbcType=OTHER}
+        where cast(locker_id as varchar(18)) like #{query,jdbcType=VARCHAR}
     </select>
 </mapper>

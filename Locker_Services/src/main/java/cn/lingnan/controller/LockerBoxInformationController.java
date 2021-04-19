@@ -75,13 +75,14 @@ public class LockerBoxInformationController {
             Long lockerId = Long.valueOf(map.get("id"));
             int row = Integer.parseInt(map.get("row"));
             int column = Integer.parseInt(map.get("column"));
-            int big = Integer.parseInt(map.get("boxType"));
-            int normal = Integer.parseInt(map.get("boxType"));
-            int small = Integer.parseInt(map.get("boxType"));
+            int big = Integer.parseInt(map.get("big"));
+            int normal = Integer.parseInt(map.get("normal"));
+            int small = Integer.parseInt(map.get("small"));
             int terminalPosition = Integer.parseInt(map.get("terminalPosition"));
             if (big + normal + small != row) {
                 throw new APIException("传入参数有误！");
             }
+            int height = big * 4 + normal * 2 + small;
             List<LockerBoxInformation> list = lockerBoxInformationService.findBoxListInOneLocker(lockerId);
             for (LockerBoxInformation t : list) {
                 if (t.getLockerColumn() == column) {
@@ -98,39 +99,39 @@ public class LockerBoxInformationController {
             a.setCreateTime(date);
             a.setUpdateTime(date);
             a.setStatusTime(date);
-            for (int x = 1; x < column; x++) {
+            for (int x = 1; x <= column; x++) {
                 a.setLockerColumn(x);
                 if (x == terminalPosition) {
-                    for (int y = 9; y < row; y++) {
+                    for (int y = 1; y <= height - 8; y++) {
                         a.setLockerRow(y);
                         a.setBoxType(3);
-                        if (lockerBoxInformationService.insert(a) != 1) {
+                        if (lockerBoxInformationService.insertSelective(a) != 1) {
                             throw new APIException("Box记录插入异常");
                         }
 
                     }
                 } else {
-                    for (int y = 1; y < row; ) {
-                        for (int i = 1; i < big; i++) {
+                    for (int y = 1; y <= row; ) {
+                        for (int i = 1; i <= big; i++) {
                             a.setLockerRow(y);
                             a.setBoxType(1);
-                            if (lockerBoxInformationService.insert(a) != 1) {
+                            if (lockerBoxInformationService.insertSelective(a) != 1) {
                                 throw new APIException("Box记录插入异常");
                             }
                             y++;
                         }
-                        for (int i = 1; i < normal; i++) {
+                        for (int i = 1; i <= normal; i++) {
                             a.setLockerRow(y);
                             a.setBoxType(2);
-                            if (lockerBoxInformationService.insert(a) != 1) {
+                            if (lockerBoxInformationService.insertSelective(a) != 1) {
                                 throw new APIException("Box记录插入异常");
                             }
                             y++;
                         }
-                        for (int i = 1; i < small; i++) {
+                        for (int i = 1; i <= small; i++) {
                             a.setLockerRow(y);
                             a.setBoxType(3);
-                            if (lockerBoxInformationService.insert(a) != 1) {
+                            if (lockerBoxInformationService.insertSelective(a) != 1) {
                                 throw new APIException("Box记录插入异常");
                             }
                             y++;
@@ -188,7 +189,7 @@ public class LockerBoxInformationController {
     }
 
     /**
-     * @param query    Locker ID模糊搜索，为空则列出全表
+     * @param query    Locker ID精确搜索，为空则列出全表
      * @param pagenum
      * @param pagesize
      * @return

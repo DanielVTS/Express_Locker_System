@@ -84,7 +84,7 @@ public class LockerBasicInformationController {
         }
         int result = lockerBoxInformationService.deleteByLockerId(Long.valueOf(id));
 
-        if (result != lockerBasicInformation.getTotalBox()) {
+        if (result > lockerBasicInformation.getTotalBox()) {
             throw new APIException(500, "LBI记录删除异常！");
         }
         result = lockerBasicInformationService.deleteByPrimaryKey(Long.valueOf(id));
