@@ -70,6 +70,7 @@ public class PackageInformationController {
         return "PackageInformation记录修改成功！";
     }
 
+    @Deprecated
     @PostMapping("findByExpressNumber")
     @ResponseBody
     public Object findByExpressNumber(String expressNumber) {
@@ -145,6 +146,7 @@ public class PackageInformationController {
      * @return
      */
     @GetMapping("list")
+    @ResponseBody
     public CommonResult<Object> findPackageByPage(
             @RequestParam(name = "query", required = false) String query,
             @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
