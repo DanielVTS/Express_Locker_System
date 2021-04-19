@@ -194,6 +194,7 @@ public class LockerBoxInformationController {
         return CommonResult.success();
     }
 
+
     /**
      * @param query    Locker ID精确搜索，为空则列出全表
      * @param pagenum
@@ -220,5 +221,16 @@ public class LockerBoxInformationController {
 
         }
 
+    }
+
+    @GetMapping("findBoxForPost")
+    @ResponseBody
+    public CommonResult<Object> findBoxForPost(
+            @RequestParam(name = "lockerId", defaultValue = "1") Long lockerId,
+            @RequestParam(name = "boxType", defaultValue = "5") Integer boxType) {
+        LockerBoxInformation a = lockerBoxInformationService.findBoxForPost(lockerId, boxType);
+        if (a.getLockerBoxId() == null) {
+            return CommonResult.failed();
+        } else return CommonResult.success(a);
     }
 }

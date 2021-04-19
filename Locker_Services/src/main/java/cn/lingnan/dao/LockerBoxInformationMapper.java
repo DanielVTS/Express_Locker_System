@@ -2,6 +2,7 @@ package cn.lingnan.dao;
 
 import cn.lingnan.dto.LockerBoxInformation;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface LockerBoxInformationMapper {
     List<LockerBoxInformation> findBoxListInOneLocker(Long lockerId);
 
     List<LockerBoxInformation> findBoxList(String query);
+
+    LockerBoxInformation findBoxForPost(@Param("lockerId") Long lockerId, @Param("boxType") Integer boxType);
 }

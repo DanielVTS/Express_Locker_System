@@ -26,5 +26,7 @@ public interface LockerBoxInformationService {
 
     PageResult<LockerBoxInformation> findBoxByPage(String query, Integer pageNum, Integer pageSize);
 
+    LockerBoxInformation findBoxForPost(Long lockerId, Integer boxType);
+
 
 }

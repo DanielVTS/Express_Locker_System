@@ -68,4 +68,11 @@ public class LockerBoxInformationServiceImpl implements LockerBoxInformationServ
         PageInfo<LockerBoxInformation> pageInfo = new PageInfo<>(lockerBoxInformationMapper.findBoxList(query));
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
     }
+
+    @Override
+    public LockerBoxInformation findBoxForPost(Long lockerId, Integer boxType) {
+        return lockerBoxInformationMapper.findBoxForPost(lockerId, boxType);
+
+    }
+
 }
