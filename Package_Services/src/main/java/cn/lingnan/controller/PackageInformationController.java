@@ -43,7 +43,7 @@ public class PackageInformationController {
         return "PackageInformation记录插入成功！";
     }
 
-    @PostMapping("removePackage/{id}")
+    @DeleteMapping("removePackage/{id}")
     @ResponseBody
     public String RemovePackageInformation(@PathVariable(name = "id") String id) {
         logger.info("删除PackageInformation ==>" + id);

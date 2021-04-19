@@ -13,7 +13,7 @@ public class PackageInformation {
 
     private String expressNumber;
 
-    private Integer expressCompany;
+    private String expressCompany;
 
     private String receiverPhone;
 

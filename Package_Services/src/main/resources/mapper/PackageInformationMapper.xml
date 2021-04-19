@@ -6,7 +6,7 @@
         <!--@Table els_package.package_information-->
         <id column="package_id" jdbcType="BIGINT" property="packageId"/>
         <result column="express_number" jdbcType="VARCHAR" property="expressNumber"/>
-        <result column="express_company" jdbcType="INTEGER" property="expressCompany"/>
+        <result column="express_company" jdbcType="VARCHAR" property="expressCompany"/>
         <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone"/>
         <result column="receiver_address" jdbcType="VARCHAR" property="receiverAddress"/>
         <result column="receiver_name" jdbcType="VARCHAR" property="receiverName"/>
@@ -47,7 +47,7 @@
         exp_operator_id, exp_operator_phone, create_time,
         update_time, status_time, "status",
         remark)
-        values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=VARCHAR}, #{expressCompany,jdbcType=INTEGER},
+        values (#{packageId,jdbcType=BIGINT}, #{expressNumber,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR},
         #{receiverPhone,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR},
         #{senderName,jdbcType=VARCHAR}, #{senderPhone,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR},
         #{expOperatorId,jdbcType=BIGINT}, #{expOperatorPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
@@ -115,7 +115,7 @@
                 #{expressNumber,jdbcType=VARCHAR},
             </if>
             <if test="expressCompany != null">
-                #{expressCompany,jdbcType=INTEGER},
+                #{expressCompany,jdbcType=VARCHAR},
             </if>
             <if test="receiverPhone != null">
                 #{receiverPhone,jdbcType=VARCHAR},
@@ -166,7 +166,7 @@
                 express_number = #{expressNumber,jdbcType=VARCHAR},
             </if>
             <if test="expressCompany != null">
-                express_company = #{expressCompany,jdbcType=INTEGER},
+                express_company = #{expressCompany,jdbcType=VARCHAR},
             </if>
             <if test="receiverPhone != null">
                 receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
@@ -214,7 +214,7 @@
         <!--@mbg.generated-->
         update els_package.package_information
         set express_number = #{expressNumber,jdbcType=VARCHAR},
-        express_company = #{expressCompany,jdbcType=INTEGER},
+        express_company = #{expressCompany,jdbcType=VARCHAR},
         receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
         receiver_address = #{receiverAddress,jdbcType=VARCHAR},
         receiver_name = #{receiverName,jdbcType=VARCHAR},
