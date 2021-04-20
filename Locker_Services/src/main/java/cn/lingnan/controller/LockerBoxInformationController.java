@@ -197,6 +197,7 @@ public class LockerBoxInformationController {
             if (a.getLockerId() != null) {
                 if (empty != 0) {
                     a.setUsedBox(a.getUsedBox() + empty);
+                    a.setStatusTime(new Date(System.currentTimeMillis()));
                     int result = lockerBasicInformationService.updateByPrimaryKeySelective(a);
                     if (result != 1) {
                         throw new APIException(500, "Locker记录修改异常！");
@@ -206,6 +207,8 @@ public class LockerBoxInformationController {
                 throw new APIException(500, "Box记录修改异常！");
             }
         }
+        record.setStatusTime(new Date(System.currentTimeMillis()));
+        record.setUpdateTime(new Date(System.currentTimeMillis()));
         logger.info("修改Locker ==>" + record);
         int result = lockerBoxInformationService.updateByPrimaryKey(record);
         if (result != 1) {
@@ -265,30 +268,14 @@ public class LockerBoxInformationController {
     @GetMapping("findBoxForGet")
     @ResponseBody
     public CommonResult<Object> findBoxForGet(
-            @RequestParam(name = "lockerId") Long lockerId,
             @RequestParam(name = "lockerBoxId") String lockerBoxId) {
-        if (lockerId == null || lockerBoxId == null) {
+        if (lockerBoxId == null) {
             return CommonResult.failed("参数有误！");
         }
         LockerBoxInformation a = lockerBoxInformationService.selectByPrimaryKey(lockerBoxId);
         if (a.getLockerBoxId() == null) {
             return CommonResult.failed("LockerBoxId有误！");
         } else {
-            a.setBoxIsEmpty(1);
-            a.setStatusTime(new Date(System.currentTimeMillis()));
-            int result = lockerBoxInformationService.updateByPrimaryKeySelective(a);
-            if (result != 1) {
-                return CommonResult.failed("LockerBox信息更新异常!");
-            }
-            LockerBasicInformation b = lockerBasicInformationService.selectByPrimaryKey(lockerId);
-            if (b.getLockerId() == null) {
-                return CommonResult.failed("LockerId有误!");
-            }
-            b.setUsedBox(b.getUsedBox() - 1);
-            result = lockerBasicInformationService.updateByPrimaryKeySelective(b);
-            if (result != 1) {
-                return CommonResult.failed("Locker信息更新异常!");
-            }
             return CommonResult.success(a);
         }
     }

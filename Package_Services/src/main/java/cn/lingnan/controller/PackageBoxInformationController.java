@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("packageBoxInformation")
@@ -49,9 +50,14 @@ public class PackageBoxInformationController {
         return "PackageBoxInformation记录删除成功！";
     }
 
-    @PostMapping("edit")
+    @PutMapping("edit")
     @ResponseBody
-    public String EditPackageBoxInformation(@RequestBody @Validated PackageBoxInformation record) {
+    public String EditPackageBoxInformation(@RequestBody PackageBoxInformation record) {
+        Date now = new Date(System.currentTimeMillis());
+        record.setUpdateTime(now);
+        if (record.getStatus() == 5) {
+            record.setStatusTime(now);
+        }
         logger.info("修改PackageBoxInformation ==>" + record.toString());
         int result = packageBoxInformationService.updateByPrimaryKey(record);
         if (result != 1) {

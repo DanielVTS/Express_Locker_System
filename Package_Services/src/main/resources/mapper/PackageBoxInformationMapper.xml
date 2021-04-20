@@ -181,7 +181,7 @@
         select
         <include refid="Base_Column_List"/>
         from els_package.package_box_information
-        where package_code = #{packageCode,jdbcType=VARCHAR} and status=1
+        where package_code = #{packageCode,jdbcType=VARCHAR} and status=2
     </select>
 
     <select id="findByPage" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">

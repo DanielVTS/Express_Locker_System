@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -147,27 +148,21 @@ public class PackageInformationController {
 
     @GetMapping("getPackage")
     @ResponseBody
-    public CommonResult<Object> getPackage(@RequestParam("code") String code, @RequestParam("code") String phone) {
-        if (code != null && !code.equals("") && code.length() != 8) {
+    public CommonResult<Object> getPackage(@RequestParam("code") String code, @RequestParam("phone") String phone) {
+        if (code != null && !code.equals("") && code.length() == 8) {
             PackageBoxInformation a = packageBoxInformationService.findByCode(code);
-            if (a.getPbiId() == null) {
+            if (a == null || a.getPbiId() == null) {
                 return CommonResult.failed("电话号码或code不正确！");
             }
             PackageInformation b = packageInformationService.selectByPrimaryKey(a.getPackageId());
-            if (b.getPackageId() == null && !phone.equals(b.getReceiverPhone())) {
+            if (!b.getReceiverPhone().equals(phone)) {
                 return CommonResult.failed("电话号码或code不正确！");
+            } else {
+                Map<String, Object> rt = new HashMap<>();
+                rt.put("packageBoxInformation", a);
+                rt.put("packageInformation", b);
+                return CommonResult.success(rt);
             }
-            a.setStatus(3);
-            int result = packageBoxInformationService.updateByPrimaryKeySelective(a);
-            if (result != 1) {
-                throw new APIException("PBI记录更新异常！");
-            }
-            b.setStatus(3);
-            result = packageInformationService.updateByPrimaryKeySelective(b);
-            if (result != 1) {
-                throw new APIException("Package记录更新异常！");
-            }
-            return CommonResult.success(b);
         } else {
             return CommonResult.failed("电话号码或code不正确！");
         }
