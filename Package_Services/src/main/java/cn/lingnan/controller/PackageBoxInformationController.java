@@ -94,7 +94,7 @@ public class PackageBoxInformationController {
      * @return
      */
     @GetMapping("list")
-    public CommonResult<PageResult<PackageBoxInformation>> queryUserByPage(
+    public CommonResult<PageResult<PackageBoxInformation>> queryPBIByPage(
             @RequestParam(name = "query", required = false) String query,
             @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
             @RequestParam(name = "pagesize", defaultValue = "5") Integer pagesize) {
@@ -111,7 +111,7 @@ public class PackageBoxInformationController {
             } catch (NumberFormatException ignored) {
             }
         }
-        if (UUIDCheck.isValidUUID(query)) {
+        if (query != null && UUIDCheck.isValidUUID(query)) {
             PackageBoxInformation temp = packageBoxInformationService.selectByPrimaryKey(query);
             if (temp.getPbiId() != null) {
                 List<PackageBoxInformation> list = new ArrayList<>();

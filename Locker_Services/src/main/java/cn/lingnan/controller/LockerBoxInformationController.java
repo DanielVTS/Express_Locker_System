@@ -228,8 +228,11 @@ public class LockerBoxInformationController {
     public CommonResult<Object> findBoxForPost(
             @RequestParam(name = "lockerId", defaultValue = "1") Long lockerId,
             @RequestParam(name = "boxType", defaultValue = "5") Integer boxType) {
+        if (lockerId == null || boxType == null) {
+            return CommonResult.failed("参数有误！");
+        }
         LockerBoxInformation a = lockerBoxInformationService.findBoxForPost(lockerId, boxType);
-        if (a.getLockerBoxId() == null) {
+        if (a.getLockerBoxId() == null || a.getLockerBoxId() == "") {
             return CommonResult.failed();
         } else {
             a.setDoorStatus(2);
