@@ -94,6 +94,7 @@ public class PackageBoxInformationController {
      * @return
      */
     @GetMapping("list")
+    @ResponseBody
     public CommonResult<PageResult<PackageBoxInformation>> queryPBIByPage(
             @RequestParam(name = "query", required = false) String query,
             @RequestParam(name = "pagenum", defaultValue = "1") Integer pagenum,
