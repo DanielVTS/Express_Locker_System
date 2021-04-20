@@ -60,7 +60,7 @@ public class PackageInformationController {
     public String EditPackageInformation(@RequestBody PackageInformation record) {
         Date now = new Date(System.currentTimeMillis());
         record.setUpdateTime(now);
-        if (record.getStatus() == 5) {
+        if (record.getStatus() == 3) {
             record.setStatusTime(now);
         }
         logger.info("修改PackageInformation ==>" + record);
