@@ -90,20 +90,25 @@ public class PackageInformationController {
         String lockerID;
         String lockerBoxID;
         long randomNum;
-        if (map.containsKey("lockerID")) {
-            lockerID = map.get("lockerID").toString();
-            map.remove("lockerID");
+        if (map.containsKey("lockerId")) {
+            lockerID = map.get("lockerId").toString();
+            map.remove("lockerId");
         } else {
             return CommonResult.failed();
         }
-        if (map.containsKey("lockerBoxID")) {
-            lockerBoxID = map.get("lockerBoxID").toString();
-            map.remove("lockerBoxID");
+        if (map.containsKey("lockerBoxId")) {
+            lockerBoxID = map.get("lockerBoxId").toString();
+            map.remove("lockerBoxId");
         } else {
             return CommonResult.failed();
         }
         PackageInformation record = (PackageInformation) MapToBean.transMap2Bean(map, new PackageInformation());
         logger.info("添加PackageInformation ==>" + record);
+        Date date = new Date(System.currentTimeMillis());
+        record.setCreateTime(date);
+        record.setUpdateTime(date);
+        record.setStatusTime(date);
+
         int result = packageInformationService.insertSelective(record);
         if (result != 1) {
             throw new APIException(500, "PackageInformation记录插入异常！");
@@ -129,11 +134,12 @@ public class PackageInformationController {
                     break;
                 }
             }
-            Date date = new Date(randomNum);
+            date = new Date(randomNum);
             packageBoxInformation.setCreateTime(date);
             packageBoxInformation.setUpdateTime(date);
             packageBoxInformation.setStatusTime(date);
             packageBoxInformation.setStatus(0);
+            packageBoxInformation.setOperatorId(result2.getExpOperatorId().toString());
             packageBoxInformationService.insertSelective(packageBoxInformation);
             return CommonResult.success();
         } else return CommonResult.failed();

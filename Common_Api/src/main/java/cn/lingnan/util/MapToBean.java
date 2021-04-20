@@ -15,9 +15,16 @@ public class MapToBean {
             PropertyDescriptor[] properties = beanInfo.getPropertyDescriptors();
             for (PropertyDescriptor prop : properties) {
                 String key = prop.getName();
-                if (map.containsKey(key) && map.get(key) != null) {
+
+                if (map.containsKey(key) && map.get(key) != null && map.get(key) != "") {
                     Object value = map.get(key);
                     Method setMethod = prop.getWriteMethod();
+                    if (prop.getPropertyType().equals(Long.class)) {
+                        value = Long.parseLong((String) value);
+                    }
+                    if (prop.getPropertyType().equals(Integer.class)) {
+                        value = Integer.parseInt((String) value);
+                    }
                     setMethod.invoke(obj, value);
                 }
             }

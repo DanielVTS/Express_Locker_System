@@ -231,6 +231,11 @@ public class LockerBoxInformationController {
         LockerBoxInformation a = lockerBoxInformationService.findBoxForPost(lockerId, boxType);
         if (a.getLockerBoxId() == null) {
             return CommonResult.failed();
-        } else return CommonResult.success(a);
+        } else {
+            a.setDoorStatus(2);
+            a.setStatusTime(new Date(System.currentTimeMillis()));
+            lockerBoxInformationService.updateByPrimaryKeySelective(a);
+            return CommonResult.success(a);
+        }
     }
 }
