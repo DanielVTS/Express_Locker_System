@@ -188,6 +188,6 @@
         select
         <include refid="Base_Column_List"/>
         from els_package.package_box_information
-        where package_code like #{packageCode,jdbcType=VARCHAR} order by status
+        where package_id like #{packageCode,jdbcType=VARCHAR} order by status
     </select>
 </mapper>

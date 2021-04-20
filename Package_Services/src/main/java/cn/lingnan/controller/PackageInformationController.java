@@ -138,12 +138,42 @@ public class PackageInformationController {
             packageBoxInformation.setCreateTime(date);
             packageBoxInformation.setUpdateTime(date);
             packageBoxInformation.setStatusTime(date);
-            packageBoxInformation.setStatus(0);
+            packageBoxInformation.setStatus(2);
             packageBoxInformation.setOperatorId(result2.getExpOperatorId().toString());
             packageBoxInformationService.insertSelective(packageBoxInformation);
             return CommonResult.success();
         } else return CommonResult.failed();
     }
+
+    @GetMapping("getPackage")
+    @ResponseBody
+    public CommonResult<Object> getPackage(@RequestParam("code") String code, @RequestParam("code") String phone) {
+        if (code != null && !code.equals("") && code.length() != 8) {
+            PackageBoxInformation a = packageBoxInformationService.findByCode(code);
+            if (a.getPbiId() == null) {
+                return CommonResult.failed("电话号码或code不正确！");
+            }
+            PackageInformation b = packageInformationService.selectByPrimaryKey(a.getPackageId());
+            if (b.getPackageId() == null && !phone.equals(b.getReceiverPhone())) {
+                return CommonResult.failed("电话号码或code不正确！");
+            }
+            a.setStatus(3);
+            int result = packageBoxInformationService.updateByPrimaryKeySelective(a);
+            if (result != 1) {
+                throw new APIException("PBI记录更新异常！");
+            }
+            b.setStatus(3);
+            result = packageInformationService.updateByPrimaryKeySelective(b);
+            if (result != 1) {
+                throw new APIException("Package记录更新异常！");
+            }
+            return CommonResult.success(b);
+        } else {
+            return CommonResult.failed("电话号码或code不正确！");
+        }
+
+    }
+
 
     /**
      * @param query    快递号、手机号模糊查找

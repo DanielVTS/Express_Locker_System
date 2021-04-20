@@ -1,7 +1,9 @@
 package cn.lingnan.controller;
 
+import cn.lingnan.dto.LockerBasicInformation;
 import cn.lingnan.dto.LockerBoxInformation;
 import cn.lingnan.exception.APIException;
+import cn.lingnan.service.LockerBasicInformationService;
 import cn.lingnan.service.LockerBoxInformationService;
 import cn.lingnan.util.CommonResult;
 import cn.lingnan.util.PageResult;
@@ -25,6 +27,8 @@ public class LockerBoxInformationController {
     private final Logger logger = LoggerFactory.getLogger(LockerBoxInformationService.class);
     @Resource
     private LockerBoxInformationService lockerBoxInformationService;
+    @Resource
+    private LockerBasicInformationService lockerBasicInformationService;
 
     @Deprecated
     @PostMapping("addLockerBoxRow")
@@ -186,6 +190,22 @@ public class LockerBoxInformationController {
         if (record.getLockerBoxId() == null) {
             return CommonResult.failed("Box记录id空！");
         }
+        LockerBoxInformation compare = lockerBoxInformationService.selectByPrimaryKey(record.getLockerBoxId());
+        if (compare.getLockerBoxId() != null) {
+            int empty = record.getBoxIsEmpty() - compare.getBoxIsEmpty();
+            LockerBasicInformation a = lockerBasicInformationService.selectByPrimaryKey(record.getLockerId());
+            if (a.getLockerId() != null) {
+                if (empty != 0) {
+                    a.setUsedBox(a.getUsedBox() + empty);
+                    int result = lockerBasicInformationService.updateByPrimaryKeySelective(a);
+                    if (result != 1) {
+                        throw new APIException(500, "Locker记录修改异常！");
+                    }
+                }
+            } else {
+                throw new APIException(500, "Box记录修改异常！");
+            }
+        }
         logger.info("修改Locker ==>" + record);
         int result = lockerBoxInformationService.updateByPrimaryKey(record);
         if (result != 1) {
@@ -226,8 +246,8 @@ public class LockerBoxInformationController {
     @GetMapping("findBoxForPost")
     @ResponseBody
     public CommonResult<Object> findBoxForPost(
-            @RequestParam(name = "lockerId", defaultValue = "1") Long lockerId,
-            @RequestParam(name = "boxType", defaultValue = "5") Integer boxType) {
+            @RequestParam(name = "lockerId") Long lockerId,
+            @RequestParam(name = "boxType") Integer boxType) {
         if (lockerId == null || boxType == null) {
             return CommonResult.failed("参数有误！");
         }
@@ -238,6 +258,37 @@ public class LockerBoxInformationController {
             a.setDoorStatus(2);
             a.setStatusTime(new Date(System.currentTimeMillis()));
             lockerBoxInformationService.updateByPrimaryKeySelective(a);
+            return CommonResult.success(a);
+        }
+    }
+
+    @GetMapping("findBoxForGet")
+    @ResponseBody
+    public CommonResult<Object> findBoxForGet(
+            @RequestParam(name = "lockerId") Long lockerId,
+            @RequestParam(name = "lockerBoxId") String lockerBoxId) {
+        if (lockerId == null || lockerBoxId == null) {
+            return CommonResult.failed("参数有误！");
+        }
+        LockerBoxInformation a = lockerBoxInformationService.selectByPrimaryKey(lockerBoxId);
+        if (a.getLockerBoxId() == null) {
+            return CommonResult.failed("LockerBoxId有误！");
+        } else {
+            a.setBoxIsEmpty(1);
+            a.setStatusTime(new Date(System.currentTimeMillis()));
+            int result = lockerBoxInformationService.updateByPrimaryKeySelective(a);
+            if (result != 1) {
+                return CommonResult.failed("LockerBox信息更新异常!");
+            }
+            LockerBasicInformation b = lockerBasicInformationService.selectByPrimaryKey(lockerId);
+            if (b.getLockerId() == null) {
+                return CommonResult.failed("LockerId有误!");
+            }
+            b.setUsedBox(b.getUsedBox() - 1);
+            result = lockerBasicInformationService.updateByPrimaryKeySelective(b);
+            if (result != 1) {
+                return CommonResult.failed("Locker信息更新异常!");
+            }
             return CommonResult.success(a);
         }
     }
