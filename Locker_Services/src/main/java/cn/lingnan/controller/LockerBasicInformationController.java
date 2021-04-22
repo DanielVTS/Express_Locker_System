@@ -80,7 +80,7 @@ public class LockerBasicInformationController {
         logger.info("删除Locker ==>" + id);
         LockerBasicInformation lockerBasicInformation = lockerBasicInformationService.selectByPrimaryKey(Long.valueOf(id));
         if (lockerBasicInformation.getUsedBox() != 0) {
-            return CommonResult.failed();
+            return CommonResult.failed("此快递柜有使用中柜格！");
         }
         int result = lockerBoxInformationService.deleteByLockerId(Long.valueOf(id));
 
