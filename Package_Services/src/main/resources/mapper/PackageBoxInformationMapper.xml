@@ -181,13 +181,19 @@
         select
         <include refid="Base_Column_List"/>
         from els_package.package_box_information
-        where package_code = #{packageCode,jdbcType=VARCHAR} and status=2
+        <if test="package_code!=null">
+            where package_code = #{packageCode,jdbcType=VARCHAR}
+        </if>
+        and status=2
     </select>
 
-    <select id="findByPage" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
+    <select id="findAllByCode" parameterType="cn.lingnan.dto.PackageInformation" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from els_package.package_box_information
-        where package_id like #{packageCode,jdbcType=VARCHAR} order by status
+        <if test="package_code!=null">
+            where package_code = #{packageCode,jdbcType=VARCHAR}
+        </if>
+        order by status
     </select>
 </mapper>

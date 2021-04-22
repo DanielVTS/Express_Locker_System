@@ -20,10 +20,10 @@ public class MapToBean {
                     Object value = map.get(key);
                     Method setMethod = prop.getWriteMethod();
                     if (prop.getPropertyType().equals(Long.class)) {
-                        value = Long.parseLong((String) value);
+                        value = Long.parseLong(value.toString());
                     }
                     if (prop.getPropertyType().equals(Integer.class)) {
-                        value = Integer.parseInt((String) value);
+                        value = Integer.parseInt(value.toString());
                     }
                     setMethod.invoke(obj, value);
                 }

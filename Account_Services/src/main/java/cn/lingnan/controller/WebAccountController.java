@@ -76,6 +76,9 @@ public class WebAccountController {
             update.setId(account.getId());
             update.setStatusTime(new Date(System.currentTimeMillis()));
             webAccountService.updateByPrimaryKeySelective(update);
+            if (account.getStatus() == 2) {
+                return CommonResult.failed("此账号已禁用！");
+            }
             return CommonResult.success(account);
         } else return CommonResult.validateFailed("用户名或密码错误！");
     }
@@ -142,7 +145,7 @@ public class WebAccountController {
     }
 
     @DeleteMapping("delete/{id}")
-    public CommonResult<Object> delete(@PathVariable(name = "id", required = true) String id) {
+    public CommonResult<Object> delete(@PathVariable(name = "id") String id) {
         int result;
         try {
             result = webAccountService.deleteByPrimaryKey(Long.parseLong(id));

@@ -23,6 +23,6 @@ public interface PackageBoxInformationMapper {
 
     PackageBoxInformation findByCode(String code);
 
-    List<PackageBoxInformation> findByPage(String packageCode);
+    List<PackageBoxInformation> findAllByCode(String code);
 
 }

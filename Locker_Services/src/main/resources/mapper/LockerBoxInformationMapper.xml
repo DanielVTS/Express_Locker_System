@@ -206,6 +206,7 @@
         select
         <include refid="Base_Column_List"/>
         from els_locker.locker_box_information
-        where locker_id = #{lockerId,jdbcType=BIGINT} AND box_type=#{boxType,jdbcType=INTEGER} AND STATUS=1 limit 1
+        where locker_id = #{lockerId,jdbcType=BIGINT} AND box_type=#{boxType,jdbcType=INTEGER} AND box_is_empty=1 and
+        STATUS=1 limit 1
     </select>
 </mapper>

@@ -255,8 +255,8 @@ public class LockerBoxInformationController {
             return CommonResult.failed("参数有误！");
         }
         LockerBoxInformation a = lockerBoxInformationService.findBoxForPost(lockerId, boxType);
-        if (a.getLockerBoxId() == null || a.getLockerBoxId() == "") {
-            return CommonResult.failed();
+        if (a == null) {
+            return CommonResult.failed("此快递柜当前无此类型可用柜格!");
         } else {
             a.setDoorStatus(2);
             a.setStatusTime(new Date(System.currentTimeMillis()));

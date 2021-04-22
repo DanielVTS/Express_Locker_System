@@ -59,12 +59,7 @@ public class PackageBoxInformationServiceImpl implements PackageBoxInformationSe
     @Override
     public PageResult<PackageBoxInformation> findByPage(String query, Integer pagenum, Integer pagesize) {
         PageHelper.startPage(pagenum, pagesize);
-        if (query == null) {
-            query = "%%";
-        } else {
-            query = "%" + query + "%";
-        }
-        PageInfo<PackageBoxInformation> pageInfo = new PageInfo<>(packageBoxInformationMapper.findByPage(query));
+        PageInfo<PackageBoxInformation> pageInfo = new PageInfo<>(packageBoxInformationMapper.findAllByCode(query));
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getPages(), pageInfo.getList());
     }
 }
