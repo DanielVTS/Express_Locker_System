@@ -12,7 +12,6 @@ import cn.lingnan.util.PageResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -188,9 +187,6 @@ public class PackageInformationController {
         }
         //PageResult<WebAccount> pageResult=webAccountService.findUserByPage(query,pagenum,pagesize);
         PageResult<PackageInformation> pageResult = packageInformationService.findPackageByPage(query, pagenum, pagesize);
-        if (CollectionUtils.isEmpty(pageResult.getItems())) {
-            return CommonResult.success();
-        }
         return CommonResult.success(pageResult);
     }
 
