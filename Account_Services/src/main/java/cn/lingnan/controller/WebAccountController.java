@@ -107,7 +107,8 @@ public class WebAccountController {
         if (webAccount.getId() == null) {
             return CommonResult.failed();
         }
-        if (!webAccountService.findByPhone(webAccount.getPhone()).isEmpty()) {
+        List<WebAccount> list = webAccountService.findByPhone(webAccount.getPhone());
+        if (list.size() > 1 || !list.get(0).getId().equals(webAccount.getId())) {
             return CommonResult.phone_failed();
         }
         Calendar a = Calendar.getInstance();
