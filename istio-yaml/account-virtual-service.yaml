@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: accountservice
+  namespace: express
+spec:
+  hosts:
+  - "api.danielvt.xyz"
+  gateways:
+    - express-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /account
+    route:
+    - destination:
+        host: account-services-89hzt.express.svc.cluster.local
+        port:
+          number: 80
+    corsPolicy:
+      allowOrigin:
+      - api.danielvt.xyz
+      - express.danielvt.xyz
+      - localhost:8080

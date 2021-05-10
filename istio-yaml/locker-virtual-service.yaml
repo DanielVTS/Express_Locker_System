@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: lockerservice
+  namespace: express
+spec:
+  hosts:
+  - "api.danielvt.xyz"
+  gateways:
+    - express-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /locker
+    route:
+    - destination:
+        host: locker-services-ttlqw.express.svc.cluster.local
+        port:
+          number: 80
+    corsPolicy:
+      allowOrigin:
+      - api.danielvt.xyz
+      - express.danielvt.xyz
+      - localhost:8080
