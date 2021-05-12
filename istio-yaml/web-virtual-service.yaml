@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: webservice
+  namespace: express
+spec:
+  hosts:
+  - "express.danielvt.xyz"
+  gateways:
+    - web-gateway
+  http:
+  - route:
+    - destination:
+        host: web-service.express.svc.cluster.local
+        port:
+          number: 80
+    corsPolicy:
+      allowOrigin:
+      - api.danielvt.xyz
+      - express.danielvt.xyz
+      - localhost:8080
+
